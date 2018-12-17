@@ -1,0 +1,73 @@
+.olvidoPass {
+    text-align: center;
+    font-size: 18px;
+    color: gray;
+}
+
+.olvidoPass a {
+    color: #f57c00;
+    cursor: pointer;
+}
+
+.btnSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnSection button {
+    margin: 0 10px 0 10px;
+}
+
+
+/* label color */
+
+.input-field label {
+    color: rgb(28, 39, 88);
+}
+
+
+/* label focus color */
+
+.input-field input[type=email]:focus+label,
+.input-field input[type=password]:focus+label {
+    color: #f57c00;
+}
+
+
+/* label underline focus color */
+
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #f57c00;
+    box-shadow: 0 1px 0 0 #f57c00;
+}
+
+
+/* valid color */
+
+.input-field input[type=email].valid,
+.input-field input[type=password].valid {
+    border-bottom: 1px solid rgb(28, 39, 88);
+    box-shadow: 0 1px 0 0 rgb(28, 39, 88);
+}
+
+
+/* invalid color */
+
+.input-field input[type=email].invalid,
+.input-field input[type=password].invalid {
+    border-bottom: 1px solid rgb(228, 0, 87);
+    box-shadow: 0 1px 0 0 rgb(228, 0, 87);
+}
+
+
+/* icon prefix focus color */
+
+.input-field .prefix {
+    color: rgb(28, 39, 88);
+}
+
+.input-field .prefix.active {
+    color: #f57c00;
+}

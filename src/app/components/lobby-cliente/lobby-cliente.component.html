@@ -1,0 +1,47 @@
+<app-navbar (ChatData)="receiverChatData($event)"></app-navbar>
+
+<div class="contentLobby">
+    <div class="chatSection">
+        <div *ngFor="let chat of chatContent">
+            <div id="cliente-content-message" *ngIf="chat.emisor === 'c'">
+                <div id="cliente-message">{{chat.mensaje}}</div>
+            </div>
+            <div id="psiquica-content-message" *ngIf="chat.emisor === 'p'">
+                <img src="http://placehold.it/50x50">
+                <div id="psiquica-message">{{chat.mensaje}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="textSection">
+        <div class="row">
+            <form class="col s12" [formGroup]="chatClienteForm" novalidate (ngSubmit)="sendMessage()">
+                <div class="row">
+                    <div class="input-field col s12 sendMsg">
+                        <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
+                        <button class="btnSendMsg btnJosie" [disabled]="!chatClienteForm.valid">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- MODAL TERMINAR CHAT-->
+<div class="closeChatContainer">
+    <div class="row">
+        <div class="col starsContainer">
+            <span class="rating">
+                <input type="radio" class="rating-input" id="rating-input-1-1" value="5" [(ngModel)]="star" name="star">
+                <label for="rating-input-1-1" class="rating-star"></label>
+                <input type="radio" class="rating-input" id="rating-input-1-2" value="4" [(ngModel)]="star" name="star">
+                <label for="rating-input-1-2" class="rating-star"></label>
+                <input type="radio" class="rating-input" id="rating-input-1-3" value="3" [(ngModel)]="star" name="star">
+                <label for="rating-input-1-3" class="rating-star"></label>
+                <input type="radio" class="rating-input" id="rating-input-1-4" value="2" [(ngModel)]="star" name="star">
+                <label for="rating-input-1-4" class="rating-star"></label>
+                <input type="radio" class="rating-input" id="rating-input-1-5" value="1" [(ngModel)]="star" name="star">
+                <label for="rating-input-1-5" class="rating-star"></label>
+            </span>
+            <button (click)="TerminarChat()" class="btn btnJosie">Enviar</button>
+        </div>
+    </div>
+</div>

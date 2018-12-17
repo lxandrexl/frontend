@@ -1,0 +1,131 @@
+.contentProfile {
+    color: gray;
+}
+
+.imgProfile {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+}
+
+.imgZodiaco {
+    width: 30px;
+    height: 30px;
+}
+
+.nameProfile {
+    color: #f57c00;
+    font-weight: 600;
+}
+
+.nameProfile i {
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+}
+
+.fechaProfile {
+    text-transform: capitalize;
+}
+
+.generoProfile i,
+.fechaProfile i {
+    color: #f57c00;
+    margin-right: 10px;
+}
+
+.generoProfile,
+.fechaProfile {
+    font-size: 20px;
+}
+
+.contentProfile .firstPart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.contentProfile .secondPart .titleZodiaco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(28, 39, 88);
+    font-weight: 600;
+}
+
+.contentProfile .secondPart .titleZodiaco img {
+    margin-top: 7px;
+    margin-right: 5px;
+}
+
+.contentProfile .secondPart .descZodiaco p {
+    font-size: 19px;
+    font-weight: 600;
+    padding-left: 70px;
+}
+
+.contentProfile .secondPart .descZodiaco i {
+    color: #f57c00;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.contentProfile .publicidadContent img {
+    padding-top: 20px;
+    width: 100%;
+}
+
+.contentProfile .buttonsContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.contentProfile .buttonsContent button {
+    height: 60px;
+    width: 50%;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 22px;
+}
+
+.btnSpecial {
+    background-color: rgb(247, 218, 201);
+    color: rgb(28, 39, 88);
+}
+
+
+/* Modal */
+
+#editarProfileModal h4 {
+    color: rgb(28, 39, 88);
+}
+
+#editarProfileModal hr {
+    border: .5px solid rgb(28, 39, 88);
+}
+
+#editarProfileModal .btnEnviarPerfil {
+    background-color: rgb(28, 39, 88);
+}
+
+@media only screen and (max-width: 730px) {
+    .contentProfile .secondPart .titleZodiaco .text {
+        font-size: 24px;
+    }
+    .contentProfile .secondPart .descZodiaco p {
+        padding-left: 20px;
+    }
+    .contentProfile .buttonsContent button {
+        width: 90%;
+    }
+    .generoProfile i,
+    .fechaProfile i {
+        margin-left: 20px;
+    }
+    #secondList {
+        margin-top: -20px;
+    }
+}

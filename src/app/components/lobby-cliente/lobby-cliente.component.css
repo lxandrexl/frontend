@@ -1,0 +1,160 @@
+/*Lobby content */
+
+.contentLobby {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+.timeHistory {
+    font-size: 25px;
+    font-weight: 600;
+    padding-right: 20px;
+    cursor: default;
+}
+
+.chatSection {
+    background-color: #979797;
+    width: 100%;
+    margin-top: 7vh;
+    min-height: 78vh;
+    max-height: 78vh;
+    border-bottom: 2px solid rgb(28, 39, 88);
+    padding-top: 25px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.textSection {
+    background-color: rgb(28, 39, 88);
+    width: 100%;
+    min-height: 15vh;
+    font-size: 17px;
+}
+
+.textBody {
+    background-color: #FFFFFF;
+    min-height: 10vh;
+    padding-top: 10px;
+    padding-left: 10px;
+    resize: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.sendMsg {
+    display: flex;
+    flex-direction: row;
+}
+
+.btnSendMsg {
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    cursor: pointer;
+}
+
+
+/* MESSAGES
+
+/* nube de chat */
+
+#psiquica-content-message {
+    padding: 5px 20px;
+    display: flex;
+    cursor: default;
+}
+
+#psiquica-content-message img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 100%;
+}
+
+#psiquica-message {
+    background-color: #FAFAFA;
+    color: rgb(28, 40, 88);
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: default;
+}
+
+#cliente-content-message {
+    padding: 5px 20px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: default;
+}
+
+#cliente-message {
+    background-color: rgb(28, 40, 88);
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: default;
+}
+
+.closeChatContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, .7);
+    z-index: 1500;
+}
+
+.starsContainer {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 600px;
+    margin-left: -300px;
+    height: 400px;
+    margin-top: -150px;
+    background-image: url('../../../assets/img/fondo.png');
+}
+
+
+/*STARS*/
+
+.rating {
+    overflow: hidden;
+    display: inline-block;
+    margin: 0.2em 0;
+}
+
+.rating-star {
+    display: block;
+    float: right;
+    width: 4rem;
+    height: 4rem;
+    background: url('../../../assets/img/stars.svg') 0 0;
+}
+
+.rating-star:hover,
+.rating-star:hover~.rating-star,
+.rating-input:checked~.rating-star {
+    background-position: 0 64px;
+}
+
+@media only screen and (max-width: 992px) {
+    .starsContainer {
+        width: 95%;
+        margin: 0;
+        left: 0;
+        top: 10%;
+        margin-left: 2.5%;
+        padding: 0;
+    }
+    .rating-star {
+        width: 4.6rem;
+        height: 4.7rem;
+    }
+}

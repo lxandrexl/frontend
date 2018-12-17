@@ -1,0 +1,139 @@
+<div class="navbar-fixed">
+    <nav class=" bg-jossie">
+        <div class="nav-wrapper">
+            <a class="brand-logo"><img (click)="RedirectHome()" src="assets/img/logo.png" alt=""></a>
+            <a class="brand-logo mobile" [innerHTML]="timerInput1"></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li *ngIf="sessionStatus && roomStatus && onRoom" [innerHTML]="timerInput2" class="timeHistory" id="timeHistoryTwo">
+                </li>
+                <li *ngIf="sessionStatus && roomStatus && onRoom">
+                    <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btnIniciarSesion">Terminar Chat</button>
+                </li>
+                <li *ngIf="!sessionStatus">
+                    <button (click)="RedirectLogin()" class="waves-effect waves-light btn orange darken-2 btnIniciarSesion">Iniciar Sesión</button>
+                </li>
+                <li *ngIf="sessionStatus && !onRoom">
+                    <a href="perfil">
+                        <i class="material-icons left">person</i>Perfil</a>
+                </li>
+                <li *ngIf="sessionStatus && !roomStatus">
+                    <a class="dropdown-trigger" href="#!" data-target="chatearMore">
+                        <i class="material-icons left">chat</i> Chatear
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+                <li *ngIf="sessionStatus && roomStatus && !onRoom">
+                    <a href="private-room">
+                        <i class="material-icons left">chat</i>Entrar al chat
+                    </a>
+                </li>
+                <li *ngIf="sessionStatus && !onRoom">
+                    <a href="compras">
+                        <i class="material-icons left">shopping_cart</i>Comprar</a>
+                </li>
+                <li *ngIf="sessionStatus && !onRoom">
+                    <a href="suscripcion">
+                        <i class="material-icons left">check</i>Suscribete</a>
+                </li>
+                <li *ngIf="sessionStatus && !onRoom">
+                    <a class="dropdown-trigger" href="#!" data-target="usuarioMore">
+                        <i class="material-icons left">settings</i> {{userNavbar}}
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+
+            </ul>
+            <a href="#" data-target="slide-out" class="sidenav-trigger "><i class="material-icons">menu</i></a>
+        </div>
+
+    </nav>
+</div>
+
+<!-- NAVEGACION EN MOBILE -->
+
+<ul id="slide-out" class="sidenav">
+    <li class="tituloMenu"><img (click)="RedirectHome()" src="assets/img/logo.png" alt=""></li>
+    <li *ngIf="!sessionStatus">
+        <button (click)="RedirectLogin()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Iniciar Sesión</button>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom">
+        <a href="perfil"><i class="material-icons">person</i>Perfil</a>
+    </li>
+    <li *ngIf="sessionStatus && roomStatus && !onRoom">
+        <div class="divider"></div>
+    </li>
+    <li *ngIf="sessionStatus  && !roomStatus">
+        <a class="dropdown-trigger" href="#!" data-target="chatearMoreMobile">
+            <i class="material-icons">chat</i> Chatear
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+    <li *ngIf="sessionStatus && roomStatus && !onRoom">
+        <a href="private-room">
+            <i class="material-icons left">chat</i>Entrar al chat
+            <i style="color: green;" class="fas fa-circle right"></i>
+        </a>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom ">
+        <div class="divider"></div>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom">
+        <a href="compras"><i class="material-icons">shopping_cart</i>Comprar</a>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom">
+        <div class="divider"></div>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom">
+        <a href="suscripcion"><i class="material-icons">check</i>Suscribete</a>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom">
+        <div class="divider"></div>
+    </li>
+    <li *ngIf="sessionStatus && !onRoom">
+        <a class="dropdown-trigger" href="#!" data-target="usuarioMoreMobile">
+            <i class="material-icons">settings</i> {{userNavbar}}
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
+    </li>
+    <li *ngIf="sessionStatus && roomStatus && onRoom">
+        <button (click)="TerminarChat()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Terminar Chat</button>
+    </li>
+</ul>
+
+<!--Dropdown Section -->
+<ul id="usuarioMore" class="dropdown-content">
+    <li><a href="mis-compras">Mis compras</a></li>
+    <li class="divider"></li>
+    <li><a href="chat-psiquica">{{minutosPsiquica}} minutos</a></li>
+    <li class="divider"></li>
+    <li><a href="chat-josie">{{citasPsiquica}} citas</a></li>
+    <li class="divider"></li>
+    <li>
+        <button (click)="destroyTokenSession()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Cerrar Sesión</button>
+    </li>
+</ul>
+
+<ul id="chatearMore" class="dropdown-content">
+    <li><a href="chat-josie">Con Josie</a></li>
+    <li class="divider"></li>
+    <li><a href="chat-psiquica">Con Psiquicas</a></li>
+</ul>
+
+<!--Dropdown Section Mobile-->
+<ul id="usuarioMoreMobile" class="dropdown-content">
+    <li><a href="mis-compras">Mis compras</a></li>
+    <li class="divider"></li>
+    <li><a href="chat-psiquica">{{minutosPsiquica}} minutos</a></li>
+    <li class="divider"></li>
+    <li><a href="chat-josie">{{citasPsiquica}} citas</a></li>
+    <li class="divider"></li>
+    <li>
+        <button (click)="destroyTokenSession()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Cerrar Sesión</button>
+    </li>
+</ul>
+
+<ul id="chatearMoreMobile" class="dropdown-content">
+    <li><a href="chat-josie">Con Josie</a></li>
+    <li class="divider"></li>
+    <li><a href="chat-psiquica">Con Psiquicas</a></li>
+</ul>

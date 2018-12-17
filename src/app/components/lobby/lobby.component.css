@@ -1,0 +1,188 @@
+.bg-jossie {
+    background-color: rgb(28, 39, 88);
+}
+
+.mobile {
+    display: none;
+}
+
+.brand-logo {
+    padding: 10px 0 5px 80px;
+}
+
+.btnIniciarSesion {
+    margin-right: 20px;
+}
+
+.mbtnIniciarSesion {
+    width: 100%;
+}
+
+.tituloMenu {
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    background-color: rgb(28, 39, 88);
+    cursor: default;
+    color: #FFFFFF;
+    padding-top: 10px;
+}
+
+.loginpsiContent {
+    padding: 50px;
+}
+
+.textCenter {
+    text-align: center;
+    font-weight: 600;
+}
+
+
+/*Lobby content */
+
+.contentLobby {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+.timeHistory {
+    font-size: 25px;
+    font-weight: 600;
+    padding-right: 20px;
+    cursor: default;
+}
+
+.chatSection {
+    background-color: #979797;
+    width: 100%;
+    margin-top: 7vh;
+    min-height: 78vh;
+    max-height: 78vh;
+    border-bottom: 2px solid rgb(28, 39, 88);
+    padding-top: 25px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.textSection {
+    background-color: rgb(28, 39, 88);
+    width: 100%;
+    min-height: 15vh;
+    font-size: 17px;
+}
+
+.textBody {
+    background-color: #FFFFFF;
+    min-height: 10vh;
+    padding-top: 10px;
+    padding-left: 10px;
+    resize: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.sendMsg {
+    display: flex;
+    flex-direction: row;
+}
+
+.btnSendMsg {
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+    .mobile {
+        display: block;
+        padding: 0;
+    }
+    .brand-logo:first-child {
+        display: none;
+    }
+    .chatSection {
+        margin-top: 7vh;
+        min-height: 78vh;
+    }
+}
+
+
+/* LLAMADA */
+
+.llamadaContainer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+    height: 300px;
+    margin-top: -150px;
+    border: 1px solid #808080;
+    padding: 5px;
+    background-image: url('../../../assets/img/fondo.png');
+}
+
+.logoLlamada img {
+    display: block;
+    margin: auto;
+    width: 150px;
+}
+
+.datosLlamada {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.btnCancelar {
+    margin-left: 15px;
+}
+
+
+/** MENSAJES
+
+/* nube de chat */
+
+#cliente-content-message {
+    padding: 5px 20px;
+    display: flex;
+    cursor: default;
+}
+
+#cliente-content-message img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 100%;
+}
+
+#cliente-message {
+    background-color: #FAFAFA;
+    color: rgb(28, 40, 88);
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: default;
+}
+
+#psiquica-content-message {
+    padding: 5px 20px;
+    display: flex;
+    justify-content: flex-end;
+    cursor: default;
+}
+
+#psiquica-message {
+    background-color: rgb(28, 40, 88);
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: default;
+}

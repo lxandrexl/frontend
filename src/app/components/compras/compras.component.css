@@ -1,0 +1,38 @@
+.contentCompras {
+    padding: 0 40px 0 40px;
+    color: rgb(28, 39, 88);
+}
+
+.contentCompras h5 {
+    font-weight: 600;
+}
+
+.contentCompras .imgCompras {
+    width: 100%;
+}
+
+.contentCompras .pointer {
+    cursor: pointer;
+}
+
+.imgContainer img {
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    width: 100%;
+}
+
+.imgContainer:hover img {
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -ms-transform: scale(1.01);
+    -o-transform: scale(1.01);
+    transform: scale(1.01);
+}
+
+@media only screen and (max-width: 730px) {
+    .contentCompras {
+        padding: 0 20px 0 20px;
+    }
+}

@@ -1,0 +1,73 @@
+<div class="navbar-fixed">
+    <nav class=" bg-jossie">
+        <div class="nav-wrapper">
+            <a class="brand-logo"><img (click)="RedirectHome()" src="assets/img/logo.png" alt=""></a>
+            <a class="brand-logo mobile" [innerHTML]="timerInput1"></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li class="timeHistory" [innerHTML]="timerInput2">
+
+                </li>
+                <li *ngIf="!chatStatus">
+                    <button (click)="CerrarSesion()" class="waves-effect waves-light btn orange darken-2 btnIniciarSesion">Cerrar Sesión</button>
+                </li>
+                <li *ngIf="chatStatus">
+                    <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btnIniciarSesion">Terminar Chat</button>
+                </li>
+            </ul>
+            <a href="#" data-target="slide-out" class="sidenav-trigger "><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+</div>
+
+<div class="contentLobby">
+    <div class="chatSection">
+        <div *ngFor="let chat of chatContent">
+            <div id="cliente-content-message" *ngIf="chat.emisor === 'c'">
+                <img src="http://placehold.it/50x50">
+                <div id="cliente-message">{{chat.mensaje}}</div>
+            </div>
+            <div id="psiquica-content-message" *ngIf="chat.emisor === 'p'">
+                <div id="psiquica-message">{{chat.mensaje}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="textSection">
+        <div class="row">
+            <form class="col s12" [formGroup]="chatForm" novalidate (ngSubmit)="sendMessage()">
+                <div class="row">
+                    <div class="input-field col s12 sendMsg">
+                        <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
+                        <input type="hidden" [(ngModel)]="valInput" formControlName="validator">
+                        <button class="btnSendMsg btnJosie" [disabled]="!chatForm.valid">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL LLAMADA  -->
+<div class="llamadaContainer">
+    <div class="row" *ngIf="clienteStatus">
+        <div class="col l12 s12 logoLlamada">
+            <img src="../../../assets/img/sol.gif">
+        </div>
+        <div class="col l12 s12 datosLlamada">
+            <p>Llamada de {{clienteData.nombre}} {{clienteData.apellido_paterno}}...</p>
+            <button (click)="aceptarLlamada()" class="btn btnJosie">Aceptar</button>
+            <button (click)="cancelarLlamada()" class="btn btnCancelar">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!--MOBILE NAVIGATION-->
+<ul id="slide-out" class="sidenav">
+    <li class="tituloMenu"><img src="assets/img/logo.png" alt=""></li>
+    <li *ngIf="!chatStatus">
+        <button (click)="CerrarSesion()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Cerrar Sesión</button>
+    </li>
+    <li *ngIf="chatStatus">
+        <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btn-large mbtnIniciarSesion">
+        Terminar Chat</button>
+    </li>
+</ul>

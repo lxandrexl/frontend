@@ -1,0 +1,185 @@
+.chatPsiContent {
+    padding: 0 20px 0 20px;
+    color: rgb(28, 39, 88);
+}
+
+.chatPsiContent .circle-psi {
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgb(28, 39, 88);
+}
+
+.chatPsiContent .itemPsiquica {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 15px 0 15px 0;
+}
+
+.chatPsiContent .itemPsiquica img {
+    display: block;
+    margin: auto;
+}
+
+.chatPsiContent .itemPsiquica .stars-psi {
+    width: 150px;
+}
+
+.chatPsiContent .itemPsiquica .namePsi {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chatPsiContent .itemPsiquica .subtitlePsi {
+    margin-top: -5px;
+    text-align: center;
+}
+
+.chatPsiContent .itemPsiquica button {
+    width: 50%;
+    margin: auto;
+    margin-top: 15px;
+}
+
+.btnOcupado {
+    background-color: rgba(109, 41, 166, 1);
+}
+
+@media only screen and (max-width: 730px) {
+    .chatPsiContent {
+        padding: 0 10px 0 10px;
+    }
+    .chatPsiContent .itemPsiquica button {
+        width: 70%;
+        margin: auto;
+        margin-top: 15px;
+    }
+}
+
+
+/* modal */
+
+.containerDescription {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .6);
+    z-index: 1000;
+    color: rgb(28, 39, 88);
+    display: none;
+}
+
+.btnCloseDescription {
+    border: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    padding: 0 12px 6px 12px;
+    background-color: #f57c00;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.bodyDescription {
+    background-image: url('../../../assets/img/fondo.png');
+    width: 100%;
+    min-height: 90vh;
+    max-height: 90vh;
+    margin-top: 5vh;
+    padding: 30px 20px 0 20px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.imgPsiquica {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imgPsiquica h5 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.imgPsiquica img {
+    display: block;
+    margin: auto;
+}
+
+.itemPsiquica>div {
+    text-align: center;
+}
+
+.item {
+    margin-right: 10px;
+}
+
+.btnLlamar {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+/* LLAMADA PROCESO MODAL */
+
+.shadowContainerLlamada {
+    display: none;
+    position: fixed;
+    top: 0;
+    z-index: 1200;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0, .8);
+}
+
+.llamadaContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+    height: 300px;
+    margin-top: -150px;
+    border: 1px solid #808080;
+    padding: 5px;
+    background-image: url('../../../assets/img/fondo.png');
+}
+
+.logoLlamada img {
+    display: block;
+    margin: auto;
+    width: 150px;
+}
+
+.llamadaContainer .llamadaProcessMessage {
+    font-weight: bold;
+    text-align: center;
+    font-size: 25px;
+    color: rgb(28, 39, 88);
+}
+
+@media only screen and (max-width: 992px) {
+    .bodyDescription {
+        padding: 5px 2px 2px 2px;
+    }
+    .itemPsiquica>div {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    .btnCloseDescription {
+        border: none;
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        font-size: 22px;
+        padding: 0 9px 6px 9px;
+        background-color: #f57c00;
+        color: #FFFFFF;
+    }
+}

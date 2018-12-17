@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+<div class="containerBody">
+    <div class="chatPsiContent">
+        <div class="row">
+            <h4>Escoje tu psíquica</h4>
+            <div class="col s6 l3 itemPsiquica" *ngFor="let psiquica of psiquicas">
+                <img src="../../../assets/img/{{psiquica.foto}}" class="circle-psi">
+                <h5 class="namePsi">{{psiquica.usuario}}</h5>
+                <p class="subtitlePsi">Experta en Amor</p>
+                <img src="../../../assets/img/stars/4.png" class="stars-psi">
+                <button *ngIf="psiquica.estado != 1" class="btn btnOcupado">Ocupado</button>
+                <button (click)="openDescription(psiquica)" *ngIf=" psiquica.estado==1 " [attr.data-psiquica]="psiquica.id_psiquica " class="btn btnJosie ">
+                    Chatear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="containerDescription">
+    <div class="container" *ngIf="psiquica_status">
+        <div class="row bodyDescription">
+            <button class="btnCloseDescription" (click)="closeDescription()">x</button>
+            <div class="col s12 l12">
+                <div class="row">
+                    <div class="col l4 s12 imgPsiquica">
+                        <h5>{{psiquica.usuario}}</h5>
+                        <img src="../../../assets/img/{{psiquica.foto}}" class="circle">
+                    </div>
+                    <div class="col l8 s12 descPsiquica">
+                        <p>{{psiquica.descripcion}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l12">
+                <div class="row itemPsiquica">
+                    <div class="col l4 s12">
+                        <i class="item fas fa-child"></i>
+                        <b>Signo:</b> {{psiquica.signo.toUpperCase()}}
+                    </div>
+                    <div class="col l4 s12">
+                        <i class="item fas fa-atom"></i>
+                        <b>Elemento:</b> {{psiquica.elemento.toUpperCase()}}
+                    </div>
+                    <div class="col l4 s12">
+                        <i class="item fas fa-gem"></i>
+                        <b>Piedra:</b> {{psiquica.piedra.toUpperCase()}}
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l12">
+                <button (click)="iniciarLlamada(psiquica)" class="btn btnJosie btnLlamar">Iniciar Chat</button>
+            </div>
+            <div class="col s12 l12">
+                <!--COMENTARIOS-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL LLAMADA  -->
+
+<div class="shadowContainerLlamada">
+    <div class="llamadaContainer">
+        <div class="row">
+            <div class="col l12 s12 logoLlamada">
+                <img src="../../../assets/img/sol.gif">
+            </div>
+            <div class="col l12 s12 ">
+                <p class="llamadaProcessMessage">Llamando...</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END  LLAMADA-->
+<app-footer></app-footer>

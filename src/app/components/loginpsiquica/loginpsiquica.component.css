@@ -1,0 +1,41 @@
+.bg-jossie {
+    background-color: rgb(28, 39, 88);
+}
+
+.brand-logo {
+    padding: 10px 0 5px 80px;
+}
+
+.btnIniciarSesion {
+    margin-right: 20px;
+}
+
+.mbtnIniciarSesion {
+    width: 100%;
+}
+
+.tituloMenu {
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    background-color: rgb(28, 39, 88);
+    cursor: default;
+    color: #FFFFFF;
+    padding-top: 10px;
+}
+
+.loginpsiContent {
+    padding: 50px;
+}
+
+.textCenter {
+    text-align: center;
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 992px) {
+    .brand-logo {
+        padding: 0;
+        padding-top: 5px;
+    }
+}

@@ -1,0 +1,71 @@
+/* Slider Suscripcion */
+
+.slideSuscripcion-container {
+    position: relative;
+}
+
+.slideSuscripcionItem {
+    display: none;
+}
+
+.slideItem {
+    display: flex;
+    min-height: 50px;
+    max-height: 50px;
+    margin-top: 30px;
+}
+
+.slideItem img {
+    margin: auto
+}
+
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+.prevlog,
+.nextlog {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 10px;
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 28px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.nextlog {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@media only screen and (max-width: 730px) {
+    .loginItem img {
+        width: 90%;
+    }
+}

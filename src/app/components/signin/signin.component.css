@@ -1,0 +1,74 @@
+.titleForm {
+    font-weight: bold;
+    color: rgb(28, 39, 88)
+}
+
+.btnSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+span.error {
+    color: #f57c00;
+}
+
+#errorMsg {
+    background: #f6b2b5;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+#errorMsg span {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    position: relative;
+    float: left;
+    font-size: 15px;
+}
+
+.btnSection button {
+    margin: 0 10px 0 10px;
+}
+
+
+/* label color */
+
+.input-field label,
+.input-field input[type=date] {
+    color: rgb(28, 39, 88);
+}
+
+
+/* label focus color */
+
+.input-field input[type=date]:focus+label,
+.input-field input[type=text]:focus+label,
+.input-field input[type=email]:focus+label,
+.input-field input[type=password]:focus+label {
+    color: #f57c00;
+}
+
+
+/* label underline focus color */
+
+.input-field input[type=date]:focus,
+.input-field input[type=text]:focus,
+.input-field input[type=email]:focus,
+.input-field input[type=password]:focus {
+    border-bottom: 1px solid #f57c00;
+    box-shadow: 0 1px 0 0 #f57c00;
+}
+
+
+/* valid color */
+
+.input-field input[type=date].valid,
+.input-field input[type=text].valid,
+.input-field input[type=email].valid,
+.input-field input[type=password].valid {
+    border-bottom: 1px solid rgb(28, 39, 88);
+    box-shadow: 0 1px 0 0 rgb(28, 39, 88);
+}

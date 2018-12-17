@@ -1,0 +1,63 @@
+.bg-jossie {
+    background-color: rgb(28, 39, 88);
+}
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.icons-container li {
+    cursor: default;
+}
+
+.icons-container li i {
+    background-color: #f57c00;
+    display: inline-block;
+    border-radius: 100%;
+    box-shadow: 0px 0px 2px #888;
+    font-size: 20px;
+    margin: 0 5px 0 5px;
+    color: #FFFFFF;
+}
+
+.icons-container .fb i {
+    padding: 5px 10px 5px;
+}
+
+.icons-container .ins i {
+    padding: 5px 7px 5px;
+}
+
+.icons-container .you i {
+    padding: 5px 4px 5px;
+}
+
+.icons-container .telf i {
+    padding: 5px 5px 5px;
+    transform: rotate(110deg);
+}
+
+p.createdby {
+    text-align: center;
+}
+
+.numberphone {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.text-center {
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    cursor: default;
+}
+
+.createdBy {
+    background-color: #f57c00;
+    color: rgb(28, 39, 88);
+    width: 100% !important;
+}

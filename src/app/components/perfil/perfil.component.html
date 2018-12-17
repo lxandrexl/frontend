@@ -1,0 +1,119 @@
+<app-navbar></app-navbar>
+<div class="containerBody">
+    <div class="row contentProfile">
+        <div class="col l6 s12">
+            <div class="row">
+                <div class="col l12 s12 firstPart">
+                    <img class="imgProfile" src="http://138.117.162.90/josieweb/assets/profile_images/03122018122410.png">
+                    <h4 class="nameProfile">
+                        {{perfil.nombre}} {{perfil.apellido_paterno}}
+                        <i class="fas fa-user-edit  modal-trigger tooltipped" href="#editarProfileModal" data-position="bottom" data-tooltip="Editar perfil"></i>
+
+                    </h4>
+                    <div class="row">
+                        <div class="col generoProfile">
+                            <i class="far fa-user"></i>
+                            <span *ngIf="perfil.sexo === 'M'"> Masculino</span>
+                            <span *ngIf="perfil.sexo === 'F'"> Femenino</span>
+                        </div>
+                        <div class="col fechaProfile">
+                            <i class="far fa-calendar-alt"></i>
+                            <span> {{DateFormat(perfil.fecha_nacimiento)}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l12 s12 secondPart">
+                    <div class="titleZodiaco">
+                        <img class="imgZodiaco" src="http://138.117.162.90/josieweb/assets/images/zodiaco/GEMINIS.png" alt="">
+                        <h4 class="text">{{zodiacoProfile[0]}} &nbsp;<i class="far fa-calendar-alt"></i> {{zodiacoProfile[1]}}</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col l6 s12 descZodiaco">
+                            <p>
+                                <i class="fas fa-palette"></i> Color: <i class="fas fa-circle "></i>
+                            </p>
+                            <p>
+                                <i class="fas fa-bookmark"></i> Frase: Yo siento
+                            </p>
+                            <p>
+                                <i class="fa-special fas fa-tint"></i> Elemento: Agua
+                            </p>
+                        </div>
+                        <div class="col l6 s12 descZodiaco " id="secondList">
+                            <p>
+                                <i class="fa-special fas fa-globe-americas"></i> Planeta: La Luna
+                            </p>
+                            <p>
+                                <i class="fa-special fas fa-gem"></i> Piedra: Perla, Jade
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l12 s12"></div>
+            </div>
+        </div>
+        <div class="col l6 s12">
+            <div class="row publicidadContent">
+                <div class="col l12 s12">
+                    <img src="../../../assets/img/publicidad/promo-10min.png">
+                </div>
+                <div class="col l12 s12 buttonsContent">
+                    <button class="waves-effect waves-light btn btnSpecial" onclick="window.location.href='compras'">
+                        <i class="far fa-clock"></i> {{perfil.min_psiquica}} min
+                    </button>
+                    <button class="waves-effect waves-light btn btnJosie" onclick="window.location.href='chat-psiquica'">
+                        <i class="far fa-comment-alt"></i> Iniciar Chat
+                    </button>
+                    <button class="waves-effect waves-light btn btnJosie" onclick="window.location.href='chat-josie'">
+                        <i class="far fa-comments"></i> Chat con Josie
+                    </button>
+                    <button class="waves-effect waves-light btn btnJosie" onclick="window.location.href='suscripcion'">
+                        <i class="fas fa-check"></i> Mis suscripciones
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="editarProfileModal" class="modal">
+    <div class="modal-content">
+        <h5>Editar Perfil <i class="fas fa-times modal-close right"></i></h5>
+        <hr>
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="nombre" type="text" class="validate" value="{{perfil.nombre}}">
+                    <label for="nombre">Nombres</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="ap_paterno" type="text" class="validate" value="{{perfil.apellido_paterno}}">
+                    <label for="ap_paterno">Ap. Paterno</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="ap_materno" type="text" class="validate" value="{{perfil.apellido_materno}}">
+                    <label for="ap_materno">Ap. Materno</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="file-field input-field">
+                    <div class="btn btnEnviarPerfil">
+                        <span>Foto</span>
+                        <input type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-close waves-effect btn-flat btnJosie">Guardar</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+<app-footer></app-footer>
