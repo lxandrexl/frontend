@@ -8,6 +8,35 @@ export class TokenService {
 
   constructor(private cookieService: CookieService) {}
 
+  // ROOM TOKENS
+  SetTimeRoom(time) {
+    this.cookieService.set('time_room', time, 365);
+  }
+  SetSecondsRoom(seconds) {
+    this.cookieService.set('seconds_room', seconds, 365);
+  }
+  SetMinutesRoom(minutes) {
+    this.cookieService.set('minutes_room', minutes, 365);
+  }
+  GetTimeRoom() {
+    return this.cookieService.get('time_room');
+  }
+  GetSecondsRoom() {
+    return this.cookieService.get('seconds_room');
+  }
+  GetMinutesRoom(){
+    return this.cookieService.get('minutes_room');
+  }
+  DeleteTimeRoom() {
+    this.cookieService.delete('time_room');
+  }
+  DeleteSecondsRoom() {
+    this.cookieService.delete('seconds_room');
+  }
+  DeleteMinutesroom() {
+    this.cookieService.delete('minutes_room');
+  }
+
   // SET TOKENS
   SetToken(token) {
     this.cookieService.set('chat_token', token, 365);
@@ -19,6 +48,10 @@ export class TokenService {
 
   SetTokenCliente(token) {
     this.cookieService.set('cliente_token', token, 365);
+  }
+  
+  SetPsiquicaRoom(psiquica) {
+    this.cookieService.set('psiquica_name', psiquica, 365);
   }
 
   setTokenRoom(token) {
@@ -39,6 +72,10 @@ export class TokenService {
     return this.cookieService.get('cliente_token');
   }
 
+  GetPsiquicaRoom() {
+    return this.cookieService.get('psiquica_name');
+  }
+
   GetTokenRoom() {
     return this.cookieService.get('chat_room');
   }
@@ -54,11 +91,15 @@ export class TokenService {
   }
 
   DeleteTokenCliente() {
-    return this.cookieService.delete('cliente_token');
+    this.cookieService.delete('cliente_token');
+  }
+
+  DeletePsiquicaRoom() {
+    this.cookieService.delete('psiquica_name');
   }
 
   DeleteTokenRoom() {
-    return this.cookieService.delete('chat_room');
+    this.cookieService.delete('chat_room');
   }
 
   // GET PAYLOADS

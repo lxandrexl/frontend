@@ -1,4 +1,4 @@
-<app-navbar (ChatData)="receiverChatData($event)"></app-navbar>
+<app-navbar (ChatData)="receiverChatData($event)" (globalPaquetes)="ProcessTime($event)"></app-navbar>
 
 <div class="contentLobby">
     <div class="chatSection">
@@ -29,6 +29,8 @@
 <div class="closeChatContainer">
     <div class="row">
         <div class="col starsContainer">
+            <span class="closeStarsContainer" (click)="hideContainer()"> X </span>
+            <h5 class="calificaTitle">Califica la atención de tu psíquica:</h5>
             <span class="rating">
                 <input type="radio" class="rating-input" id="rating-input-1-1" value="5" [(ngModel)]="star" name="star">
                 <label for="rating-input-1-1" class="rating-star"></label>
@@ -41,7 +43,11 @@
                 <input type="radio" class="rating-input" id="rating-input-1-5" value="1" [(ngModel)]="star" name="star">
                 <label for="rating-input-1-5" class="rating-star"></label>
             </span>
-            <button (click)="TerminarChat()" class="btn btnJosie">Enviar</button>
+            <div class="container">
+                <textarea placeholder="Comentanos tu experiencia con la psiquica." name="comentario" class="comentarioInput" cols="2" rows="2" [(ngModel)]="comentario"></textarea>
+                <button (click)="TerminarChat()" class="btn btnComentar btnJosie">Enviar</button>
+                <p class="advise">Es importante que des click en <b>"Enviar"</b> para finalizar el chat. </p>
+            </div>
         </div>
     </div>
 </div>

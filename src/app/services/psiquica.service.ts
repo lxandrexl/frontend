@@ -30,12 +30,11 @@ export class PsiquicaService {
     return this.http.post(`${baseURL}/psiquica/getMessages`, {room: room});
   }
 
-  closeRoom(psiquica, room, tiempo, evaluacion, comentario): Observable<any> {
+  closeRoom(psiquica, room, evaluacion, comentario): Observable<any> {
     return this.http.post(`${baseURL}/psiquica/closeRoom`, 
     { 
       psiquica: psiquica,
       room: room,
-      tiempo: tiempo,
       evaluacion: evaluacion,
       comentario: comentario
     });

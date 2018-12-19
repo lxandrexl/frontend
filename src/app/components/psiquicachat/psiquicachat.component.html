@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar (globalPaquetes)="GetPaquetes($event)"></app-navbar>
 <div class="containerBody">
     <div class="chatPsiContent">
         <div class="row">
@@ -48,7 +48,8 @@
                 </div>
             </div>
             <div class="col s12 l12">
-                <button (click)="iniciarLlamada(psiquica)" class="btn btnJosie btnLlamar">Iniciar Chat</button>
+                <button *ngIf="paquetes.min_psiquica > 0" (click)="iniciarLlamada(psiquica)" class="btn btnJosie btnLlamar">Iniciar Chat</button>
+                <button *ngIf="paquetes.min_psiquica <= 0" (click)="redirectShop()" class="btn btnJosie btnLlamar">Comprar Paquete </button>
             </div>
             <div class="col s12 l12">
                 <!--COMENTARIOS-->

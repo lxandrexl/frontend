@@ -100,6 +100,9 @@
     cursor: default;
 }
 
+
+/* CERRAR CHAT MODAL */
+
 .closeChatContainer {
     display: none;
     position: fixed;
@@ -108,6 +111,25 @@
     height: 100vh;
     background-color: rgb(0, 0, 0, .7);
     z-index: 1500;
+}
+
+.closeStarsContainer {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: rgb(28, 39, 88);
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 100%;
+    padding-right: 8px;
+    padding-left: 8px;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.closeStarsContainer:hover {
+    background-color: #f57c00;
 }
 
 .starsContainer {
@@ -119,6 +141,38 @@
     height: 400px;
     margin-top: -150px;
     background-image: url('../../../assets/img/fondo.png');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.calificaTitle {
+    text-align: center;
+    font-weight: 600;
+    color: rgb(28, 39, 88);
+    margin-bottom: 25px;
+}
+
+.comentarioInput {
+    resize: none;
+    height: 80px;
+    outline: none !important;
+    box-shadow: 0 0 10px rgb(28, 39, 88);
+    font-size: 18px;
+}
+
+.comentarioInput::placeholder {
+    color: rgba(28, 39, 88, .7);
+}
+
+button.btnComentar {
+    display: block;
+    width: 100% !important;
+    margin-top: 10px;
+}
+
+.advise {
+    color: #979797;
 }
 
 
@@ -126,16 +180,18 @@
 
 .rating {
     overflow: hidden;
-    display: inline-block;
-    margin: 0.2em 0;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 .rating-star {
     display: block;
-    float: right;
     width: 4rem;
     height: 4rem;
     background: url('../../../assets/img/stars.svg') 0 0;
+    cursor: pointer;
 }
 
 .rating-star:hover,

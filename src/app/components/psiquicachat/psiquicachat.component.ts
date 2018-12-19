@@ -17,6 +17,7 @@ export class PsiquicachatComponent implements OnInit {
   psiquica = [];
   psiquica_status = false;
   status_llamada = false;
+  paquetes = [];
 
   constructor(
     private userService: UserService,
@@ -27,7 +28,7 @@ export class PsiquicachatComponent implements OnInit {
 
   ngOnInit() {
     this.myToken = this.tokenService.GetToken();
-    this.GetPsiquicas();    
+    this.GetPsiquicas();  
     this.listenSockets();
   }
 
@@ -35,6 +36,10 @@ export class PsiquicachatComponent implements OnInit {
     this.userService.getPsiquicas().subscribe( response => {
       this.psiquicas = response.data;
     }, err => console.log(err));
+  }
+
+  GetPaquetes(event) {
+    this.paquetes = event;
   }
 
   openDescription(psiquica) {
@@ -88,9 +93,13 @@ export class PsiquicachatComponent implements OnInit {
     this.socket.on('llamada_aceptada', data => {
       if(this.myToken != data.clienteToken) return
 
+      this.tokenService.SetPsiquicaRoom(data.psiquicaId);
       this.tokenService.setTokenRoom(data.chatToken);
       window.location.href='private-room';
     })
   }
 
+  redirectShop() {
+    window.location.href = 'compras';
+  }
 }

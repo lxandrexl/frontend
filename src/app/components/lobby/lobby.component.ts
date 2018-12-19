@@ -16,6 +16,7 @@ export class LobbyComponent implements OnInit {
   socket: any;
   psiquica = [];
   psiquicaNombre: string;
+  psiquicaCod: string;
   chatForm: FormGroup;
   clienteData = [];
   clienteStatus = false;
@@ -44,6 +45,7 @@ export class LobbyComponent implements OnInit {
     this.init();
     this.psiquica = this.tokenService.GetPayloadPsiquica();
     this.psiquicaNombre = this.psiquica['usuario'];
+    this.psiquicaCod = this.psiquica['id_psiquica'];
   }
   
   listenSocket() {
@@ -59,7 +61,22 @@ export class LobbyComponent implements OnInit {
     this.socket.on('end_chat', data => {
       this.tokenService.DeleteTokenCliente();
       this.tokenService.DeleteTokenRoom();
-      window.location.href='lobby';
+      this.psiquicaservice.updateStatus(this.tokenService.GetPayloadPsiquica())
+        .subscribe( response => {
+          if(response.message)  window.location.href='lobby';
+        }, err => console.log(err));
+    })
+
+    this.socket.on('end_chat_system', data => {
+      swal('El tiempo del usuario expiro.', '', 'info')
+        .then(val => {
+          this.tokenService.DeleteTokenCliente();
+          this.tokenService.DeleteTokenRoom();
+          this.psiquicaservice.updateStatus(this.tokenService.GetPayloadPsiquica())
+            .subscribe( response => {
+              if(response.message)  window.location.href='lobby';
+            }, err => console.log(err));
+        })
     })
   }
 
@@ -113,7 +130,9 @@ export class LobbyComponent implements OnInit {
   }
 
   enterMessage(event) {
-    if( event.keyCode != 13) return 
+    if( event.keyCode != 13 ) return 
+    if(this.valInput == '') return
+    
     const message = this.chatForm.value.message.replace("\n"," ");
 
     this.psiquicaservice.sendMessage(
@@ -224,7 +243,8 @@ export class LobbyComponent implements OnInit {
         this.socket.emit('crear_chat', { 
           chatId: response.chatId, 
           chatToken: response.chatToken, 
-          clienteToken: this.clienteToken
+          clienteToken: this.clienteToken,
+          psiquicaId: this.psiquicaCod
         });
         this.tokenService.setTokenRoom(response.chatToken);
         this.tokenService.SetTokenCliente(this.clienteToken);
@@ -246,8 +266,8 @@ export class LobbyComponent implements OnInit {
         if(closeChat) {
          this.psiquicaservice.closeRoom(
            this.tokenService.GetPayloadPsiquica(),
-           this.tokenService.GetTokenRoom(),
-           this.timeRoom, 0, 'psiquica cerro')
+           this.tokenService.GetTokenRoom(), 
+           0, 'psiquica cerro')
            .subscribe(response => {
              if(response.message) 
                this.socket.emit('close_session', {room: this.tokenService.GetTokenRoom()});
