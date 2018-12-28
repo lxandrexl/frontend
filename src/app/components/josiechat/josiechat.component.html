@@ -1,5 +1,69 @@
 <app-navbar></app-navbar>
 <div class="containerBody">
-    <h1>Josie Chat</h1>
+    <div class="row contentJosieChat">
+        <div class="col l6 s12 firstPart">
+            <h4 class="titleJosie">Chatea con Josie</h4>
+            <img src="../../../assets/img/josie_bio.png" class="circleJosie">
+            <p class="descJosie" *ngIf="josie">
+                {{josie.descripcion}}
+            </p>
+        </div>
+        <div class="col l6 s12 secondPart">
+            <img (click)="redirectCompras()" class="pubJosie" src="../../../assets/img/publicidad/josie-promo.png" alt="">
+            <p class="tooltip">
+                *Recuerda separar tu cita con Josie en nuestro calendario para que puedas acceder a tu chat en el día y hora que elijas.*
+            </p>
+            <h5 class="pagosTitle">Medios de Pago</h5>
+            <div class="pagosContainer">
+                <img src="./../../assets/img/pagos/rev1/pe.jpg" alt="">
+                <img src="./../../assets/img/pagos/rev1/paypal.jpg" alt="">
+                <img src="./../../assets/img/pagos/rev1/visa.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="col l12 s12 thirdPart">
+            <h3 class="calendarTitle">Separa tu cita</h3>
+            <h5 class="calendarSubTitle">Selecciona la hora y el día</h5>
+            <button (click)="prevWeek()" class="btn btnJosie"><i class=" material-icons">arrow_back</i></button>
+            <button class="btn btnJosie" id="MonthReg" [innerHTML]="calendarTitle"></button>
+            <button (click)="nextWeek()" class="btn btnJosie"><i class=" material-icons">arrow_forward</i></button>
+            <br>
+            <hr>
+            <!-- TABLE FOR WEBSITES -->
+            <table class="striped centered">
+                <thead>
+                    <tr *ngIf="!detectMobil()">
+                        <th scope="col" class="hidenMobile"></th>
+                        <th scope="col" *ngFor="let dia of diasSemana; let i = index">
+                            {{dia}}
+                        </th>
+                    </tr>
+                    <tr *ngIf="detectMobil()">
+                        <th scope="col" class="hidenMobile"></th>
+                        <th scope="col" *ngFor="let dia of diasSemanaMovil">
+                            {{dia}}
+                        </th>
+                    </tr>
+                    <tr class="second_row">
+                        <th class="hidenMobile" scope="col"></th>
+                        <th scope="col" *ngFor="let item of IntervalDate">
+                            {{setNumerDayCalendar(item)}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="calendarContent">
+                    <tr *ngFor="let hour of hours">
+                        <th scope="row">
+                            {{hour.horario}}
+                        </th>
+                        <td *ngFor="let item of IntervalDate" [className]="item > 0 && item < 6 && 
+                            verifyAvaibleDayCalendar(item, hour) 
+                            ? 'disponible' : 'nodisponible'" (click)="openCita(item, hour, $event)">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <app-footer></app-footer>

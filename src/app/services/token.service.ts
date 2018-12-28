@@ -7,6 +7,22 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
   constructor(private cookieService: CookieService) {}
+  //CULQI COOKIES
+  setCookieCulqiDesc(name) {
+    this.cookieService.set('culqi_description', name, 365);
+  }
+
+  setCookieCulqiPrice(name) {
+    this.cookieService.set('culqi_price', name, 365);
+  }
+
+  setCookieCulqiProduct(name) {
+    this.cookieService.set('culqi_name', name, 365);
+  }
+
+  setCookieCulqiEmail(name) {
+    this.cookieService.set('culqi_email', name, 365);
+  }
 
   // ROOM TOKENS
   SetTimeRoom(time) {

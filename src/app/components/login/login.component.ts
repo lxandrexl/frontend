@@ -32,14 +32,14 @@ export class LoginComponent implements OnInit {
   }
 
   redirectRegistrar() {
-    window.location.href= "/signin";
+    window.location.href= "signin";
   }
 
   loginUser() {
     this.authService.loginUser(this.loginForm.value).subscribe( data => {
       this.tokenService.SetToken(data.token);
         this.loginForm.reset();
-        swal(data.message, "", "success").then(() => window.location.href="/perfil")
+        swal(data.message, "", "success").then(() => window.location.href="perfil")
       
     }, err => swal(err.error.message, "", "error"));
   }

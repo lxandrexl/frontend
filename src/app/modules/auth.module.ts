@@ -26,6 +26,8 @@ import { PsiquicaService } from '../services/psiquica.service';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 import { UserService } from '../services/user.service';
+import { FileUploadModule } from 'ng2-file-upload';
+import {NgxAutoScrollModule} from "ngx-auto-scroll";
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { UserService } from '../services/user.service';
     RouterModule, 
     HttpClientModule, 
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploadModule,
+    NgxAutoScrollModule
   ],
   declarations: [
     HomeComponent, 

@@ -43,6 +43,9 @@ export class NavbarComponent implements OnInit {
     this.DropDown();
     this.NabMobile();
     this.socket.on('continue_timer', data => { this.initTimerClient() });
+    this.socket.on('refresh', data => {
+      if(this.tokenService.GetToken() === data) this.verifyTokenSession();
+  });
   }
 
   verifyChatRoom() {
@@ -139,10 +142,13 @@ export class NavbarComponent implements OnInit {
       this.sessionStatus = true;
       
     if(this.sessionStatus) {
-      this.payload = this.tokenService.GetPayload();
-      this.userNavbar = this.payload.nombre + ' ' + this.payload.apellido_paterno;
-      this.id_usuario = this.payload.id_usuario;
-      this.getPaquetes({_id: this.id_usuario});
+      this.userService.getProfileByToken(this.tokenService.GetPayload())
+      .subscribe(response => {
+        this.payload = response.data;
+        this.userNavbar = this.payload.nombre + ' ' + this.payload.apellido_paterno;
+        this.id_usuario = this.payload.id_usuario;
+        this.getPaquetes({_id: this.id_usuario});
+      });
     }
   }
 
@@ -159,7 +165,5 @@ export class NavbarComponent implements OnInit {
     this.tokenService.DeleteToken();
     location.reload();
   }
-
-
 
 }

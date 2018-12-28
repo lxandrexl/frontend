@@ -249,7 +249,7 @@ export class LobbyComponent implements OnInit {
         this.tokenService.setTokenRoom(response.chatToken);
         this.tokenService.SetTokenCliente(this.clienteToken);
         this.socket.emit('entrar_chat_psiquica', { roomToken: response.chatToken });
-        window.location.href='/lobby';
+        window.location.href='lobby';
       }
     }, err => console.log(err));
   }

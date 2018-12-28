@@ -10,8 +10,16 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getProfileByToken(body): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/profile`, body);
+  }
+
   getPaquetes(idUsuario): Observable<any> {
     return this.http.post(`${baseURL}/usuario/paquetes`, idUsuario);
+  }
+
+  getDetailsZodiaco(name): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/details`, {name: name});
   }
   
   getPsiquicas(): Observable<any> {
@@ -48,6 +56,18 @@ export class UserService {
 
   expireRoom(room): Observable<any> {
     return this.http.post(`${baseURL}/usuario/expireRoom`, {room: room});
+  }
+
+  updateProfile(body): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/updateUser`, body);
+  }
+
+  getCitasUser(idUser): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/getCitas`, {_id: idUser});
+  }
+
+  GetCitasConfiguration(): Observable<any> {
+    return this.http.get(`${baseURL}/usuario/citasConf`);
   }
 
 }

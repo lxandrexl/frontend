@@ -6,7 +6,9 @@
             <div class="col l12 s12">
                 <div class="row">
                     <div class="col l6 s12 imgContainer">
-                        <img class="imgCompras pointer" src="../../../assets/img/compras/josie.png">
+                        <a class="modal-trigger" href="#modal1" (click)="setProducto(0)">
+                            <img class="imgCompras pointer" src="../../../assets/img/compras/josie.png">
+                        </a>
                     </div>
                     <div class="col l6 s12 ">
                         <img class="imgCompras" src="../../../assets/img/publicidad/promo-10min.png">
@@ -18,17 +20,70 @@
             <div class="col l12 s12">
                 <div class="row">
                     <div class="col l4 s12 imgContainer">
-                        <img class="imgCompras pointer" src="../../../assets/img/compras/20min.png">
+                        <a class="modal-trigger" href="#modal1" (click)="setProducto(1)">
+                            <img class="imgCompras pointer" src="../../../assets/img/compras/20min.png">
+                        </a>
                     </div>
                     <div class="col l4 s12 imgContainer">
-                        <img class="imgCompras pointer" src="../../../assets/img/compras/30min.png">
+                        <a class="modal-trigger" href="#modal1" (click)="setProducto(2)">
+                            <img class="imgCompras pointer" src="../../../assets/img/compras/30min.png">
+                        </a>
                     </div>
                     <div class="col l4 s12 imgContainer">
-                        <img class="imgCompras pointer" src="../../../assets/img/compras/50min.png">
+                        <a class="modal-trigger" href="#modal1" (click)="setProducto(3)">
+                            <img class="imgCompras pointer" src="../../../assets/img/compras/50min.png">
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- Modal Trigger -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content" style="text-align:center">
+        <h4 class="titleModalPago">Medios de Pago </h4>
+        <hr>
+        <form #formpaypal id="form-paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input name="cmd" value="_s-xclick" type="hidden">
+            <input name="hosted_button_id" [(ngModel)]="ppHosted" type="hidden">
+            <input type="hidden" name="return" value="https://josie.club/chatdejosie/compra_finalizada.html">
+            <input name="on0" value="Paquetes" type="hidden">
+            <input name="on1" type="hidden" [(ngModel)]="emailUser">
+            <input class="valor_pqt" name="os0" type="hidden" [(ngModel)]="producto1">
+            <input name="currency_code" value="USD" type="hidden">
+            <input type="hidden" name="charset" value="utf-8">
+            <input type="hidden" name="first_name" [(ngModel)]="nombreUser">
+            <input type="hidden" name="last_name" [(ngModel)]="apPaternoUser">
+            <input type="hidden" name="email" [(ngModel)]="emailUser">
+            <input (click)="formpaypal.submit()" src="../../../assets/img/pagos/logoPayPal.svg" name="submit" type="image">
+        </form>
+
+        <form #formpe id="form-paypal" action="https://www.josiediezcanseco.com/PagoEfectivo/test/pago.php" method="post" target="_blank">
+            <input type="hidden" name="nombre" [(ngModel)]="nombreUser">
+            <input type="hidden" name="apellido_pat" [(ngModel)]="apPaternoUser">
+            <input type="hidden" name="apellido_mat" [(ngModel)]="apMaternoUser">
+            <input type="hidden" name="correo" [(ngModel)]="emailUser">
+            <input type="hidden" name="paquete" [(ngModel)]="producto2">
+            <input (click)="formpe.submit()" src="../../../assets/img/pagos/pagoefectivo.svg" name="submit" type="image">
+        </form>
+
+        <img (click)="openCulqi()" width="94" height="auto" src="../../../assets/img/pagos/culqi.png" class="img-fluid" style="cursor:pointer" id="buyButton_30" data-price="1300" data-product="Pq.30min" data-subtitle="Compra de Paquetes Josie D.C.">
+    </div>
+    <div class="modal-footer">
+        <a class="modal-close  btn-flat btnJosie">Cerrar</a>
+    </div>
+</div>
+
+<div id="contentLoading">
+    <div class="bodyLoading">
+        <h4 class="titleLoading">Verificando compra...</h4>
+        <div class="progress">
+            <div class="indeterminate"></div>
+        </div>
+    </div>
+</div>
+
 <app-footer></app-footer>

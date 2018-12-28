@@ -4,7 +4,7 @@
         <div class="col l6 s12">
             <div class="row">
                 <div class="col l12 s12 firstPart">
-                    <img class="imgProfile" src="http://138.117.162.90/josieweb/assets/profile_images/03122018122410.png">
+                    <img class="imgProfile" src="{{perfilImg}}">
                     <h4 class="nameProfile">
                         {{perfil.nombre}} {{perfil.apellido_paterno}}
                         <i class="fas fa-user-edit  modal-trigger tooltipped" href="#editarProfileModal" data-position="bottom" data-tooltip="Editar perfil"></i>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col fechaProfile">
                             <i class="far fa-calendar-alt"></i>
-                            <span> {{DateFormat(perfil.fecha_nacimiento)}}</span>
+                            <span> {{fechaNacFormat}}</span>
                         </div>
                     </div>
                 </div>
@@ -30,21 +30,22 @@
                     <div class="row">
                         <div class="col l6 s12 descZodiaco">
                             <p>
-                                <i class="fas fa-palette"></i> Color: <i class="fas fa-circle "></i>
+                                <i class="fas fa-palette"></i> Color:
+                                <i class="fas fa-circle " [ngStyle]="{'color':  perfilDetails.color}"></i>
                             </p>
                             <p>
-                                <i class="fas fa-bookmark"></i> Frase: Yo siento
+                                <i class="fas fa-bookmark"></i> Frase: {{perfilDetails.frase}}
                             </p>
                             <p>
-                                <i class="fa-special fas fa-tint"></i> Elemento: Agua
+                                <i class="fa-special fas fa-tint"></i> Elemento: {{perfilDetails.elemento}}
                             </p>
                         </div>
                         <div class="col l6 s12 descZodiaco " id="secondList">
                             <p>
-                                <i class="fa-special fas fa-globe-americas"></i> Planeta: La Luna
+                                <i class="fa-special fas fa-globe-americas"></i> Planeta: {{perfilDetails.planeta}}
                             </p>
                             <p>
-                                <i class="fa-special fas fa-gem"></i> Piedra: Perla, Jade
+                                <i class="fa-special fas fa-gem"></i> Piedra: {{perfilDetails.piedra}}
                             </p>
                         </div>
                     </div>
@@ -81,38 +82,36 @@
     <div class="modal-content">
         <h5>Editar Perfil <i class="fas fa-times modal-close right"></i></h5>
         <hr>
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="nombre" type="text" class="validate" value="{{perfil.nombre}}">
-                    <label for="nombre">Nombres</label>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="nombre" [(ngModel)]="nombreInput" type="text" class="validate">
+                <label for="nombre">Nombres</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="ap_paterno" [(ngModel)]="apPaternoInput" type="text" class="validate">
+                <label for="ap_paterno">Ap. Paterno</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="ap_materno" [(ngModel)]="apMaternoInput" type="text" class="validate">
+                <label for="ap_materno">Ap. Materno</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="file-field input-field">
+                <div class="btn btnEnviarPerfil">
+                    <span>Foto</span>
+                    <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="OnFileSelected($event)" accept="image/png, image/jpeg">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" id="filePath" type="text">
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="ap_paterno" type="text" class="validate" value="{{perfil.apellido_paterno}}">
-                    <label for="ap_paterno">Ap. Paterno</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="ap_materno" type="text" class="validate" value="{{perfil.apellido_materno}}">
-                    <label for="ap_materno">Ap. Materno</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="file-field input-field">
-                    <div class="btn btnEnviarPerfil">
-                        <span>Foto</span>
-                        <input type="file">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="modal-close waves-effect btn-flat btnJosie">Guardar</a>
-            </div>
-        </form>
+        </div>
+        <div class="modal-footer">
+            <a class=" waves-effect btn-flat btnJosie" (click)="updateProfile()">Guardar</a>
+        </div>
     </div>
 
 </div>

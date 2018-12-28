@@ -34,3 +34,9 @@
     -o-transform: scale(1.05);
     transform: scale(1.05);
 }
+
+@media only screen and (max-width: 730px) {
+    .publicidadImg {
+        display: none;
+    }
+}

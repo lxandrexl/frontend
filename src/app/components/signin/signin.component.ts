@@ -54,7 +54,7 @@ export class SigninComponent implements OnInit {
     this.authService.registerUser(this.signupForm.value).subscribe( data => {
       this.tokenService.SetToken(data.token);
         this.signupForm.reset();
-        swal(data.message, "", "success").then(() => window.location.href="/perfil")
+        swal(data.message, "", "success").then(() => window.location.href="perfil")
 
     }, err => swal(err.error.message, "", "error"));
   }

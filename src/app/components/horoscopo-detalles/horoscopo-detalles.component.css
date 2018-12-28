@@ -1,0 +1,116 @@
+.contentSigno {
+    color: gray;
+}
+
+.imgSigno {
+    width: 90%;
+    margin: auto;
+    margin-left: -5px;
+}
+
+.titleSigno {
+    margin-top: -5px;
+}
+
+.subtitleSigno {
+    margin: 0;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.contentSigno .firstPart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.contentSigno .secondPart .titleZodiaco img {
+    margin-top: 7px;
+    margin-right: 5px;
+}
+
+.contentSigno .secondPart .descZodiaco p {
+    font-size: 19px;
+    font-weight: 600;
+    padding-left: 70px;
+}
+
+.contentSigno .secondPart .descZodiaco i {
+    color: #f57c00;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.contentSigno .publicidadContent img {
+    padding-top: 20px;
+    width: 100%;
+}
+
+.contentSigno .buttonsContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.contentSigno .buttonsContent button {
+    height: 80px;
+    width: 50%;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 32px;
+}
+
+.descSigno {
+    font-weight: 600;
+    text-align: justify;
+    padding: 0 50px;
+}
+
+
+/*__________________________REPRODUCTOR_______________________*/
+
+.thirdPart {
+    padding-left: 60px;
+}
+
+.titleSound {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+audio {
+    width: 80%;
+}
+
+@media only screen and (max-width: 730px) {
+    .contentSigno .secondPart .titleZodiaco .text {
+        font-size: 24px;
+    }
+    .contentSigno .secondPart .descZodiaco p {
+        padding-left: 20px;
+    }
+    .contentSigno .buttonsContent button {
+        width: 90%;
+    }
+    .generoProfile i,
+    .fechaProfile i {
+        margin-left: 20px;
+    }
+    #secondList {
+        margin-top: -20px;
+    }
+    .descSigno {
+        padding: 0 20px;
+    }
+    .thirdPart {
+        padding: 0 30px;
+    }
+    .titleSound {
+        font-size: 20px;
+    }
+    audio {
+        width: 100%;
+    }
+}

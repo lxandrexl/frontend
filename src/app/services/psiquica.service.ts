@@ -40,4 +40,9 @@ export class PsiquicaService {
     });
   }
 
+  // JOSIE SERVICE
+  getJosieData(): Observable<any> {
+    return this.http.get(`${baseURL}/psiquica/getJosieData`);
+  }
+
 }

@@ -34,7 +34,7 @@ export class PsiquicachatComponent implements OnInit {
 
   GetPsiquicas() {
     this.userService.getPsiquicas().subscribe( response => {
-      this.psiquicas = response.data;
+      this.psiquicas = response.result;
     }, err => console.log(err));
   }
 
