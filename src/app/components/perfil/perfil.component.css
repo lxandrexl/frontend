@@ -40,6 +40,10 @@
     font-size: 20px;
 }
 
+.signoZodiaco {
+    font-size: 25px;
+}
+
 .contentProfile .firstPart {
     display: flex;
     flex-direction: column;

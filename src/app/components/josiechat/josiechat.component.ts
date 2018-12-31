@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import io from 'socket.io-client';
 import { socketURL } from '../../globalParameters';
 import * as moment from 'moment';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-josiechat',
@@ -141,7 +142,7 @@ export class JosiechatComponent implements OnInit {
     if (!timeValidator && dayToday == this.today) return false;
     return true;
   }
-
+  //PROCESO PARA RESERVAR CITA
   openCita(item, hour, event) {
     const validateCell = event.path[0].className;
     if (validateCell == 'nodisponible') return false;
@@ -152,6 +153,20 @@ export class JosiechatComponent implements OnInit {
     if (this.detectMobil()) dayOfWeek = this.diasSemanaMovil[itemDay - 1];
     else dayOfWeek = this.diasSemana[itemDay];
     
+    swal({
+      title: "Chatea con Josie",
+      text: `¿Desea reservar una cita?  
+            Día: ${dayOfWeek} ${this.dayDataContainer[item].day} de ${this.meses[parseInt(this.dayDataContainer[item].month) - 1]}
+            Hora de cita: ${hour.horario}`,            
+      buttons: ["Cancelar", true],
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        });
+      } 
+    });
     console.log(this.dayDataContainer[item], hour.horario, dayOfWeek);
   }
 
