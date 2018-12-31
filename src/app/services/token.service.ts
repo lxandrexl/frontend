@@ -7,6 +7,23 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
   constructor(private cookieService: CookieService) {}
+  //CALENDAR COOKIE
+  setCalendarPrevToken(name) {
+    this.cookieService.set('calendar_prev', name, 365);
+  }
+
+  setCalendarNextToken(name) {
+    this.cookieService.set('calendar_next', name, 365);
+  }
+
+  getCalendarPrevToken() {
+    return this.cookieService.get('calendar_prev');
+  }
+
+  getCalendarNextToken() {
+    return this.cookieService.get('calendar_next');
+  }
+
   //CULQI COOKIES
   setCookieCulqiDesc(name) {
     this.cookieService.set('culqi_description', name, 365);

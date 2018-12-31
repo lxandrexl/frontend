@@ -47,7 +47,7 @@
                     <tr class="second_row">
                         <th class="hidenMobile" scope="col"></th>
                         <th scope="col" *ngFor="let item of IntervalDate">
-                            {{setNumerDayCalendar(item)}}
+                            {{setNumberDayCalendar(item)}}
                         </th>
                     </tr>
                 </thead>
@@ -56,7 +56,7 @@
                         <th scope="row">
                             {{hour.horario}}
                         </th>
-                        <td *ngFor="let item of IntervalDate" [className]="item > 0 && item < 6 && 
+                        <td *ngFor="let item of IntervalDate" [className]="
                             verifyAvaibleDayCalendar(item, hour) 
                             ? 'disponible' : 'nodisponible'" (click)="openCita(item, hour, $event)">
                         </td>

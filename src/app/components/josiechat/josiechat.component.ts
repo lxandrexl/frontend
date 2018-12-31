@@ -17,26 +17,26 @@ export class JosiechatComponent implements OnInit {
   josie: any;
   socket: any;
   //CALENDAR SETTINGS
-  rows: any = '';
-  calendarBody: any;
   calendarTitle = '';
   onLoadFirstNumber = 0;
   onLoadLastNumber = 7;
   codigoUsuario: any;
   totalCitas: any;
+  //CALENDAR VARIABLES
   date: any = moment().format('YYYY-MM-DD');
   today = moment().format('DD');
   todayNumber = moment().day();
-  month = moment().format('MM');
-  year = moment().format('YYYY');
   diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
   diasSemanaMovil = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
   meses: any = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  //CALENDAR VARIABLES
   hours: any;
   citas: any;
-  DaysContent: any = [];
+  mesCalendario: any;
+  anioCalendario: any;
   IntervalDate: any = [];
+  IntervalStatus: number = 7;
+  IntervalIndex: number = 0;
+  dayDataContainer = [];
 
   constructor(
     private psiquicaService: PsiquicaService,
@@ -48,7 +48,17 @@ export class JosiechatComponent implements OnInit {
 
   ngOnInit() {
     this.loadProfile();
-    this.setIntervalCalendar(this.onLoadFirstNumber, this.onLoadLastNumber, this.detectMobil());
+    this.initCalendar(this.onLoadFirstNumber, this.onLoadLastNumber);
+  }
+
+  initCalendar(start, end) {
+    this.tokenService.setCalendarPrevToken(start);
+    this.tokenService.setCalendarNextToken(end);
+    this.setIntervalCalendar(
+      parseInt(this.tokenService.getCalendarPrevToken()),
+      parseInt(this.tokenService.getCalendarNextToken()),
+      this.detectMobil()
+    );
   }
 
   redirectCompras() {
@@ -56,6 +66,8 @@ export class JosiechatComponent implements OnInit {
   }
 
   loadProfile() {
+    if (this.detectMobil()) this.IntervalStatus = this.IntervalStatus - 2;
+
     this.userService.getProfileByToken(this.tokenService.GetPayload())
       .subscribe(response => {
         this.profile = response.data;
@@ -78,7 +90,8 @@ export class JosiechatComponent implements OnInit {
   configCalendar() {
     let momentTime = parseInt(moment().format('MM').replace(/^0+/, '')) - 1;
     this.calendarTitle = this.meses[momentTime] + ' ' + moment().format('YYYY');
-
+    this.mesCalendario = moment().format('MM');
+    this.anioCalendario = moment().format('YYYY');
     this.userService.GetCitasConfiguration().subscribe(response => {
       this.hours = response.horarios;
       this.citas = response.citas;
@@ -86,6 +99,7 @@ export class JosiechatComponent implements OnInit {
   }
 
   setIntervalCalendar(init, end, type) {
+    this.IntervalDate = [];
     switch (type) {
       case true:
         init++;
@@ -104,23 +118,41 @@ export class JosiechatComponent implements OnInit {
     }
   }
 
-  setNumerDayCalendar(position) {
+  setNumberDayCalendar(position) {
+    this.IntervalStatus--;
+    if (this.IntervalStatus >= 0) {
+      this.dayDataContainer[position] = {
+        day: moment(this.date).weekday(position).format('DD'),
+        month: moment(this.date).weekday(position).format('MM'),
+        year: moment(this.date).weekday(position).format('YYYY')
+      }
+    }
     return moment(this.date).weekday(position).format('DD');
   }
 
   verifyAvaibleDayCalendar(validator, hour) {
+    if (validator == 0 || validator == 6 || validator == 7 || validator == 13 ||
+      validator == 14 || validator >= 20) return false;
     if (this.todayNumber > validator) return false;
-    const timeValidator = this.timeDiff(moment().format('HH:mm'), (hour.horario.split(" - ")[0]))
-    if (!timeValidator) return false;
+
+    const timeValidator = this.timeDiff(moment().format('HH:mm'), (hour.horario.split(" - ")[0]));
+    const dayToday = moment(this.date).weekday(validator).format('DD');
+
+    if (!timeValidator && dayToday == this.today) return false;
     return true;
   }
 
   openCita(item, hour, event) {
     const validateCell = event.path[0].className;
     if (validateCell == 'nodisponible') return false;
-
-    console.log(item, hour);
-
+    let itemDay = item;
+    let dayOfWeek = '';
+    if(item > 5 && item < 13) itemDay = itemDay - 7;
+    if(item > 13) itemDay = itemDay - 14;
+    if (this.detectMobil()) dayOfWeek = this.diasSemanaMovil[itemDay - 1];
+    else dayOfWeek = this.diasSemana[itemDay];
+    
+    console.log(this.dayDataContainer[item], hour.horario, dayOfWeek);
   }
 
   validateCita(hora, fecha, citas) {
@@ -162,4 +194,25 @@ export class JosiechatComponent implements OnInit {
       return false;
     }
   }
+
+  nextWeek() {
+    this.IntervalStatus = 7;
+    if(this.detectMobil()) this.IntervalStatus = this.IntervalStatus -2;
+    if (this.onLoadFirstNumber >= 14) return false;
+
+    this.onLoadFirstNumber = this.onLoadFirstNumber + 7;
+    this.onLoadLastNumber = this.onLoadLastNumber + 7;
+    this.initCalendar(this.onLoadFirstNumber, this.onLoadLastNumber);
+  }
+
+  prevWeek() {
+    this.IntervalStatus = 7;
+    if(this.detectMobil()) this.IntervalStatus = this.IntervalStatus -2;
+    if (this.onLoadFirstNumber <= 0) return false;
+
+    this.onLoadFirstNumber = this.onLoadFirstNumber - 7;
+    this.onLoadLastNumber = this.onLoadLastNumber - 7;
+    this.initCalendar(this.onLoadFirstNumber, this.onLoadLastNumber);
+  }
+
 }
