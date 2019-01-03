@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class TokenService {
 
   constructor(private cookieService: CookieService) {}
-  //CALENDAR COOKIE
+  //CALENDAR COOKIE  
   setCalendarPrevToken(name) {
     this.cookieService.set('calendar_prev', name, 365);
   }

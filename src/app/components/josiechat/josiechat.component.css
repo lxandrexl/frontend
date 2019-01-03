@@ -198,6 +198,23 @@ button.disabled {
     display: absolute;
 }
 
+.adviseCitas {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 20% !important;
+}
+
+.imgAdvise {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: 150px;
+}
+
+
+/* SWAL CSS*/
+
 .swal-title:first-child {
     margin-top: 0;
 }

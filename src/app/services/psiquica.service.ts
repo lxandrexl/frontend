@@ -45,4 +45,9 @@ export class PsiquicaService {
     return this.http.get(`${baseURL}/psiquica/getJosieData`);
   }
 
+  makeRoomJosie(body): Observable<any> {
+    return this.http.post(`${baseURL}/psiquica/makeRoomJosie`, body);
+  }
+
+
 }

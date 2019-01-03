@@ -6,6 +6,8 @@ import io from 'socket.io-client';
 import { socketURL } from '../../globalParameters';
 import * as moment from 'moment';
 import swal from 'sweetalert';
+import _ from 'lodash';
+
 
 @Component({
   selector: 'app-josiechat',
@@ -39,6 +41,11 @@ export class JosiechatComponent implements OnInit {
   IntervalIndex: number = 0;
   dayDataContainer = [];
 
+  currentTime: any;
+  showAdvise: boolean = false;
+  buttonMessage = 'Un momento por favor...';
+  citaActual: any;
+
   constructor(
     private psiquicaService: PsiquicaService,
     private tokenService: TokenService,
@@ -50,6 +57,45 @@ export class JosiechatComponent implements OnInit {
   ngOnInit() {
     this.loadProfile();
     this.initCalendar(this.onLoadFirstNumber, this.onLoadLastNumber);
+    this.listenSockets();
+  }
+
+  listenSockets() {
+    this.socket.on('reservo_cita', data => {
+      this.loadProfile();
+    });
+    this.socket.on('listen_josie', data => {
+      swal({
+        title: "Chatea con Josie",
+        text: `¡ Ya puedes ingresar al chat !`,
+      })
+      this.buttonMessage = 'Ingresar al chat';
+      this.psiquicaService.getJosieData().subscribe(response => {
+        this.josie = response.data;
+      }, err => console.log(err));
+    });
+    this.socket.on('listen_josie_cancel', data => {
+      if(data.token.token == this.profile.token) {
+        swal({
+          text: `Josie no pudo contestar, intentelo nuevamente por favor.`,
+          icon: 'error'
+        })
+      }
+    });
+    this.socket.on('llamada_aceptada_josie', data => {
+      if(this.profile.token != data.clienteToken) return
+
+      this.tokenService.SetPsiquicaRoom(data.psiquicaId);
+      this.tokenService.setTokenRoom(data.chatToken);
+      window.location.href='private-room';
+    })
+  }
+
+  ingresarChat() {
+    if (this.josie.estado == '0') return;
+    //clearInterval(this.currentTime);
+    //this.showAdvise = false;
+    this.socket.emit('llamar_josie', {token: this.profile, cita: this.citaActual});
   }
 
   initCalendar(start, end) {
@@ -88,6 +134,12 @@ export class JosiechatComponent implements OnInit {
     }, err => console.log(err));
   }
 
+  loadMyCitas() {
+    this.userService.getCitasPendientes(this.codigoUsuario).subscribe(response => {
+      this.verifyCitas(response.citas);
+    });
+  }
+
   configCalendar() {
     let momentTime = parseInt(moment().format('MM').replace(/^0+/, '')) - 1;
     this.calendarTitle = this.meses[momentTime] + ' ' + moment().format('YYYY');
@@ -96,6 +148,7 @@ export class JosiechatComponent implements OnInit {
     this.userService.GetCitasConfiguration().subscribe(response => {
       this.hours = response.horarios;
       this.citas = response.citas;
+      this.loadMyCitas();
     }, err => console.log(err));
   }
 
@@ -132,6 +185,18 @@ export class JosiechatComponent implements OnInit {
   }
 
   verifyAvaibleDayCalendar(validator, hour) {
+    let findCita = false;
+    const cellDate = `${this.dayDataContainer[validator].year}-${this.dayDataContainer[validator].month}-${this.dayDataContainer[validator].day}`;
+    const cellHour = hour.horario.trim();
+    this.citas.forEach(element => {
+      const citaDate = element.fecha.split('T')[0];
+      const citaHour = element.hora.trim();
+      if (citaDate == cellDate)
+        if (citaHour == cellHour)
+          findCita = true;
+    });
+    if (findCita) return false;
+
     if (validator == 0 || validator == 6 || validator == 7 || validator == 13 ||
       validator == 14 || validator >= 20) return false;
     if (this.todayNumber > validator) return false;
@@ -148,37 +213,84 @@ export class JosiechatComponent implements OnInit {
     if (validateCell == 'nodisponible') return false;
     let itemDay = item;
     let dayOfWeek = '';
-    if(item > 5 && item < 13) itemDay = itemDay - 7;
-    if(item > 13) itemDay = itemDay - 14;
+    if (item > 5 && item < 13) itemDay = itemDay - 7;
+    if (item > 13) itemDay = itemDay - 14;
     if (this.detectMobil()) dayOfWeek = this.diasSemanaMovil[itemDay - 1];
     else dayOfWeek = this.diasSemana[itemDay];
-    
-    swal({
-      title: "Chatea con Josie",
-      text: `¿Desea reservar una cita?  
-            Día: ${dayOfWeek} ${this.dayDataContainer[item].day} de ${this.meses[parseInt(this.dayDataContainer[item].month) - 1]}
-            Hora de cita: ${hour.horario}`,            
-      buttons: ["Cancelar", true],
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        swal("Poof! Your imaginary file has been deleted!", {
-          icon: "success",
+
+    const dayCita = this.dayDataContainer[item];
+    if (this.totalCitas > 0) {
+      swal({
+        title: "Chatea con Josie",
+        text: `¿Desea reservar una cita?  
+              Día: ${dayOfWeek} ${dayCita.day} de ${this.meses[parseInt(dayCita.month) - 1]}
+              Hora de cita: ${hour.horario}`,
+        buttons: ["Cancelar", true],
+      })
+        .then((citaAceptada) => {
+          if (citaAceptada) {
+            const dateCita = `${dayCita.year}-${dayCita.month}-${dayCita.day}`;
+            this.userService.setCita(this.profile.id_usuario, dateCita, hour.horario, this.totalCitas)
+              .subscribe(response => {
+                swal(`¡${response.message}!`, {
+                  icon: "success",
+                });
+                this.socket.emit('cita_reservada', { token: this.tokenService.GetToken() });
+              }, err => {
+                console.log(err);
+                swal("Ocurrio un error, no se pudo guardar la cita. Intentelo nuevamente", {
+                  icon: "error",
+                });
+              });
+          }
         });
-      } 
-    });
-    console.log(this.dayDataContainer[item], hour.horario, dayOfWeek);
+    } else {
+      swal({
+        title: "Chatea con Josie",
+        text: 'No cuentas con citas, compra una cita y chatea con Josie',
+        buttons: ["No por el momento", true]
+      }).then((ok) => {
+        if (ok) {
+          this.redirectCompras();
+        }
+      })
+    }
   }
 
-  validateCita(hora, fecha, citas) {
-    var claseType = 'disponible';
-    for (var i = 0; i < citas.length; i++) {
-      if (fecha.trim() + ' ' + hora.trim() == citas[i].fecha.trim() + ' ' + citas[i].hora.trim()) {
-        claseType = 'citado';
-        break;
-      }
+  verifyCitas(citas) {
+    let citasHoyContent = [];
+    let citaHoy = false;
+    this.citas.forEach(element => {
+      citas.forEach(cita => {
+        if (element.id_usuario == cita.id_usuario) {
+          let time = element.fecha.split('T');
+          if (time[0] == moment().format('YYYY-MM-DD')) {
+            swal({
+              title: "Chatea con Josie",
+              text: `¡ Tiene una cita el día de hoy !`,
+            })
+            citasHoyContent.push(element);
+            citaHoy = true;
+          }
+        }
+      })
+    });
+    if (citaHoy) {
+      if (this.josie.estado == '1') this.buttonMessage = 'Ingrese al chat';
+
+      let citasEncontradas = _.uniqWith(citasHoyContent, _.isEqual);
+      this.currentTime = setInterval(() => {
+        citasEncontradas.forEach(cita => {
+          let findCita = this.timeDiffCita(moment().format('HH:mm'), (cita.hora.split(" - ")[0]));
+          //let findCita = this.timeDiffCita('17:30', (cita.hora.split(" - ")[0]));
+
+          if (findCita <= 0 && findCita > -30) {
+            this.showAdvise = true;
+            this.citaActual = cita;
+          }
+        });
+      }, 1000);
     }
-    return claseType;
   }
 
   timeDiff(now, cita) {
@@ -192,6 +304,16 @@ export class JosiechatComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  timeDiffCita(now, cita) {
+    var resultado = 0;
+    now = now.split(":");
+    cita = cita.split(":");
+    now = (parseInt(now[0]) * 60) + parseInt(now[1]);
+    cita = (parseInt(cita[0]) * 60) + parseInt(cita[1]);
+    resultado = cita - now;
+    return resultado;
   }
 
   detectMobil() {
@@ -212,7 +334,7 @@ export class JosiechatComponent implements OnInit {
 
   nextWeek() {
     this.IntervalStatus = 7;
-    if(this.detectMobil()) this.IntervalStatus = this.IntervalStatus -2;
+    if (this.detectMobil()) this.IntervalStatus = this.IntervalStatus - 2;
     if (this.onLoadFirstNumber >= 14) return false;
 
     this.onLoadFirstNumber = this.onLoadFirstNumber + 7;
@@ -222,7 +344,7 @@ export class JosiechatComponent implements OnInit {
 
   prevWeek() {
     this.IntervalStatus = 7;
-    if(this.detectMobil()) this.IntervalStatus = this.IntervalStatus -2;
+    if (this.detectMobil()) this.IntervalStatus = this.IntervalStatus - 2;
     if (this.onLoadFirstNumber <= 0) return false;
 
     this.onLoadFirstNumber = this.onLoadFirstNumber - 7;

@@ -64,6 +64,14 @@
                 </tbody>
             </table>
         </div>
+        <div class="col l12 s12 " *ngIf="showAdvise">
+            <div class="adviseCitas">
+                <img src="../../../assets/img/flecha_gif.gif" class="imgAdvise">
+                <button class="btn btnJosie btn-large" (click)="ingresarChat()">
+                {{buttonMessage}}
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <app-footer></app-footer>

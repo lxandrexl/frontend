@@ -26,8 +26,8 @@ export class LobbyClienteComponent implements OnInit {
     private fb: FormBuilder,
     private tokenService: TokenService,
     private userService: UserService
-  ) { 
-      this.socket = io(socketURL);
+  ) {
+    this.socket = io(socketURL);
   }
 
   ngOnInit() {
@@ -40,14 +40,20 @@ export class LobbyClienteComponent implements OnInit {
   iniciarChat() {
     this.getMessages();
     this.roomToken = this.tokenService.GetTokenRoom();
-    if(!this.tokenService.GetTimeRoom()) this.tokenService.SetTimeRoom(0);
+    if (!this.tokenService.GetTimeRoom()) this.tokenService.SetTimeRoom(0);
     this.socket.emit('entrar_chat_cliente', { roomToken: this.roomToken });
   }
 
   ProcessTime(event) {
+
     const time = event.min_psiquica;
-    if(!this.tokenService.GetSecondsRoom()) this.tokenService.SetSecondsRoom(0);
-    if(!this.tokenService.GetMinutesRoom()) this.tokenService.SetMinutesRoom(time);
+    if (!this.tokenService.GetSecondsRoom()) this.tokenService.SetSecondsRoom(0);
+
+    if (this.tokenService.GetPsiquicaRoom() == '3') { // ID DE JOSIE
+      if (!this.tokenService.GetMinutesRoom()) this.tokenService.SetMinutesRoom('30');
+    } else {
+      if (!this.tokenService.GetMinutesRoom()) this.tokenService.SetMinutesRoom(time);
+    }
   }
 
   hideContainer() {
@@ -55,7 +61,7 @@ export class LobbyClienteComponent implements OnInit {
     (container as HTMLElement).style.display = 'none';
     this.star = 0;
     this.comentario = '';
-    this.socket.emit('continue_timer_navbar',{room: this.tokenService.GetTokenRoom()});
+    this.socket.emit('continue_timer_navbar', { room: this.tokenService.GetTokenRoom() });
     this.updateTimeRoom();
   }
 
@@ -64,58 +70,59 @@ export class LobbyClienteComponent implements OnInit {
       message: ['', Validators.required]
     });
   }
-  
+
   getMessages() {
     this.userService.getMessages(this.tokenService.GetTokenRoom())
-    .subscribe( response => {
-      this.chatContent = response.data;
-    }, err => console.log(err));    
+      .subscribe(response => {
+        this.chatContent = response.data;
+      }, err => console.log(err));
   }
 
   receiverChatData(event) {
     this.timeStats = event;
-    
-    if(this.timeStats.end){
+
+    if (this.timeStats.end) {
       this.showCommentContainer();
-    }       
+    }
   }
 
   showCommentContainer() {
     const container = document.querySelector('.closeChatContainer');
     (container as HTMLElement).style.display = 'block';
-    clearInterval(this.timerRoom); 
+    clearInterval(this.timerRoom);
   }
 
   updateTimeRoom() {
     this.timerRoom = setInterval(() => {
       const Cliente = this.tokenService.GetPayload();
-      this.userService.UpdateRoom(Cliente, this.tokenService.GetTokenRoom(), this.timeStats, false)
-        .subscribe( response => {
-          console.log(response);
-        }, err => console.log(err));
+      if (this.tokenService.GetPsiquicaRoom() != '3') {
+        this.userService.UpdateRoom(Cliente, this.tokenService.GetTokenRoom(), this.timeStats, false)
+          .subscribe(response => {
+          }, err => console.log(err));
+      }
     }, 10000);
   }
-  
+
   enterMessage(event) {
-    if( event.keyCode != 13) return 
-    const message = this.chatClienteForm.value.message.replace("\n"," ");
-    
+    if (event.keyCode != 13) return
+    const message = this.chatClienteForm.value.message.replace("\n", " ");
+
     this.userService.sendMessage(
-      message, 
-      'c', 
-      this.tokenService.GetTokenRoom()).subscribe( response => {
+      message,
+      'c',
+      this.tokenService.GetTokenRoom()).subscribe(response => {
         this.socket.emit("mensaje", { room: this.tokenService.GetTokenRoom() });
         this.chatClienteForm.reset();
       }, err => console.log(err));
   }
 
   sendMessage() {
-    const message = this.chatClienteForm.value.message.replace("\n"," ");
+    const message = this.chatClienteForm.value.message.replace("\n", " ");
 
     this.userService.sendMessage(
-      message, 
-      'c', 
-      this.tokenService.GetTokenRoom()).subscribe( response => {
+      message,
+      'c',
+      this.tokenService.GetTokenRoom()).subscribe(response => {
         this.socket.emit("mensaje", { room: this.tokenService.GetTokenRoom() });
         this.chatClienteForm.reset();
       }, err => console.log(err));
@@ -128,12 +135,13 @@ export class LobbyClienteComponent implements OnInit {
     })
 
     this.socket.on('end_chat', data => {
+      this.closeCita();
       this.tokenService.DeleteTokenRoom();
       this.tokenService.DeleteTimeRoom();
       this.tokenService.DeleteMinutesroom();
       this.tokenService.DeleteSecondsRoom();
       this.tokenService.DeletePsiquicaRoom();
-      window.location.href='';
+      window.location.href = '';
     })
 
     this.socket.on('end_chat_system', data => {
@@ -149,9 +157,10 @@ export class LobbyClienteComponent implements OnInit {
   }
 
   ExpireChat() {
+    this.closeCita();
     this.userService.expireRoom(this.tokenService.GetTokenRoom())
-      .subscribe( response => {
-        if(response.message) {
+      .subscribe(response => {
+        if (response.message) {
           this.tokenService.DeleteTokenRoom();
           this.tokenService.DeleteTimeRoom();
           this.tokenService.DeleteMinutesroom();
@@ -162,32 +171,41 @@ export class LobbyClienteComponent implements OnInit {
   }
 
   TerminarChat() {
-    if(!this.expireTime) {
+    if (!this.expireTime) {
       this.userService.closeRoom(
         this.tokenService.GetPsiquicaRoom(),
         this.timeStats.timeTotal,
         this.roomToken,
         this.star,
-        this.comentario 
-        ).subscribe( response => {
-          if(response.message) {
-            this.socket.emit('close_session', {room: this.tokenService.GetTokenRoom()});
-          }
-        }, err => console.log(err));
+        this.comentario
+      ).subscribe(response => {
+        if (response.message) {
+          this.socket.emit('close_session', { room: this.tokenService.GetTokenRoom() });
+        }
+      }, err => console.log(err));
     } else {
       this.userService.closeRoom(
         this.tokenService.GetPsiquicaRoom(),
         'expire_action',
         this.roomToken,
         this.star,
-        this.comentario 
-        ).subscribe( response => {
-          if(response.message) {
-            window.location.href='compras';
-          }
-        }, err => console.log(err));
+        this.comentario
+      ).subscribe(response => {
+        if (response.message) {
+          window.location.href = 'compras';
+        }
+      }, err => console.log(err));
     }
-}
+    this.closeCita();
+  }
+
+  closeCita() {
+    if (this.tokenService.GetPsiquicaRoom() == '3') {
+      this.userService.closeCita(this.roomToken).subscribe( response => {
+        console.log(response);
+      }, err => console.log(err));
+    }
+  }
 
 
 }

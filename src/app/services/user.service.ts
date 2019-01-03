@@ -62,12 +62,25 @@ export class UserService {
     return this.http.post(`${baseURL}/usuario/updateUser`, body);
   }
 
+  getCitasPendientes(idUser): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/getCitasPendientes`, {_id: idUser});
+  }
+
   getCitasUser(idUser): Observable<any> {
     return this.http.post(`${baseURL}/usuario/getCitas`, {_id: idUser});
   }
 
   GetCitasConfiguration(): Observable<any> {
     return this.http.get(`${baseURL}/usuario/citasConf`);
+  }
+
+  setCita(user, date, hour, citas): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/setCita`,
+    {_id: user, date: date, hour: hour, citas: citas});
+  }
+
+  closeCita(token): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/closeCita`, {token: token});
   }
 
 }
