@@ -20,7 +20,7 @@
 </div>
 
 <div class="contentLobby">
-    <div class="chatSection">
+    <div class="chatSection" ngx-auto-scroll lock-y-offset="10" observe-attributes>
         <div *ngFor="let chat of chatContent">
             <div id="cliente-content-message" *ngIf="chat.emisor === 'c'">
                 <img src="http://placehold.it/50x50">

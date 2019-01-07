@@ -6,7 +6,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li *ngIf="sessionStatus && roomStatus && onRoom" [innerHTML]="timerInput2" class="timeHistory" id="timeHistoryTwo">
                 </li>
-                <li *ngIf="sessionStatus && roomStatus && onRoom">
+                <li *ngIf="sessionStatus && roomStatus && onRoom && PsiquicaRoom() != '3'">
                     <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btnIniciarSesion">Terminar Chat</button>
                 </li>
                 <li *ngIf="!sessionStatus">
@@ -95,7 +95,7 @@
             <i class="material-icons right">arrow_drop_down</i>
         </a>
     </li>
-    <li *ngIf="sessionStatus && roomStatus && onRoom">
+    <li *ngIf="sessionStatus && roomStatus && onRoom && PsiquicaRoom() != '3'">
         <button (click)="TerminarChat()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Terminar Chat</button>
     </li>
 </ul>

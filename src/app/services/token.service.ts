@@ -41,6 +41,14 @@ export class TokenService {
     this.cookieService.set('culqi_email', name, 365);
   }
 
+  setCookieCulqiType(name) {
+    this.cookieService.set('culqi_type', name, 365);
+  }
+
+  setCookieCulqiPlan(name) {
+    this.cookieService.set('culqi_plan', name, 365);
+  }
+
   // ROOM TOKENS
   SetTimeRoom(time) {
     this.cookieService.set('time_room', time, 365);

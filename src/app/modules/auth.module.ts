@@ -28,6 +28,9 @@ import { TokenService } from '../services/token.service';
 import { UserService } from '../services/user.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import {NgxAutoScrollModule} from "ngx-auto-scroll";
+//ALTERNATIVE SOLUTION FOR URLS NAVIGATION
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 
 @NgModule({
   imports: [
@@ -66,7 +69,8 @@ import {NgxAutoScrollModule} from "ngx-auto-scroll";
     PsiquicaService, 
     AuthService, 
     TokenService, 
-    UserService
+    UserService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ]
 })
 export class AuthModule { }

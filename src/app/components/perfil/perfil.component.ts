@@ -50,6 +50,7 @@ export class PerfilComponent implements OnInit {
         this.apPaternoInput = this.perfil.apellido_paterno;
         this.apMaternoInput = this.perfil.apellido_materno;
         this.perfilImg = imgURL + 'profile_img/' + this.perfil.foto; 
+        this.fechaNacFormat = this.perfil.fecha_nacimiento.split('T')[0];
         this.DateFormat(this.perfil.fecha_nacimiento);
         this.SetProfileDetails(this.zodiacoProfile[0]);
     }, err => console.log(err) );

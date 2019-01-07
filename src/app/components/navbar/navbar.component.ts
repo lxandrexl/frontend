@@ -98,6 +98,8 @@ export class NavbarComponent implements OnInit {
       this.tokenService.SetMinutesRoom(minutes);
       this.tokenService.SetSecondsRoom(seconds);
 
+      this.socket.emit('match_time_room', { roomToken: this.tokenService.GetTokenRoom(), timeRoom: this.tokenService.GetTimeRoom()});
+
       this.DataContainer = {
         minutesRoom: parseInt(tmpMin),
         secondsRoom: parseInt(tmpSec),
@@ -170,6 +172,10 @@ export class NavbarComponent implements OnInit {
   destroyTokenSession() {
     this.tokenService.DeleteToken();
     location.reload();
+  }
+
+  PsiquicaRoom() {
+    return this.tokenService.GetPsiquicaRoom();
   }
 
 }

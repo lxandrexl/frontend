@@ -282,8 +282,6 @@ export class JosiechatComponent implements OnInit {
       this.currentTime = setInterval(() => {
         citasEncontradas.forEach(cita => {
           let findCita = this.timeDiffCita(moment().format('HH:mm'), (cita.hora.split(" - ")[0]));
-          //let findCita = this.timeDiffCita('17:30', (cita.hora.split(" - ")[0]));
-
           if (findCita <= 0 && findCita > -30) {
             this.showAdvise = true;
             this.citaActual = cita;

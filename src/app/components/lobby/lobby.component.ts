@@ -30,6 +30,8 @@ export class LobbyComponent implements OnInit {
   timeRoom = 0;
   timerInput1 = '';
   timerInput2 = '';
+  intervalTimerChat: any;
+  initTimerChat: boolean = false;
 
   citaJosieReg: any = [];
 
@@ -83,13 +85,22 @@ export class LobbyComponent implements OnInit {
             }, err => console.log(err));
         })
     })
+
+    this.socket.on('match_time', data => {
+      if(this.tokenService.GetTokenRoom() != data.roomToken) return;
+
+      this.timeRoom = data.timeRoom;
+      if(!this.initTimerChat) clearInterval(this.intervalTimerChat);
+      this.initTimer();
+      this.initTimerChat = true;
+    })
   }
 
   getMessages() {
     this.psiquicaservice.getMessages(this.tokenService.GetTokenRoom())
       .subscribe(response => {
         this.chatContent = response.data;
-        this.timeRoom = parseInt(response.timeRoom);
+        if (this.psiquicaNombre != 'JOSIE')  this.timeRoom = parseInt(response.timeRoom);
         this.initTimer();
       }, err => console.log(err));
   }
@@ -98,7 +109,7 @@ export class LobbyComponent implements OnInit {
     if (!this.tokenService.GetTokenCliente()) return
 
     this.clienteData = this.tokenService.GetPayLoadCliente();
-    this.socket.emit('entrar_chat_psiquica', { roomToken: this.tokenService.GetTokenRoom() });
+    this.socket.emit('entrar_chat_psiquica', { roomToken: this.tokenService.GetTokenRoom() });    
     this.valInput = 'validated';
     this.chatStatus = true;
     this.getMessages();
@@ -106,6 +117,8 @@ export class LobbyComponent implements OnInit {
   }
 
   initTimer() {
+    if(this.initTimerChat) return;
+
     let secondAbsolute = this.timeRoom;
     let minutes = 0;
     let seconds = this.timeRoom;
@@ -115,7 +128,7 @@ export class LobbyComponent implements OnInit {
       minutes = Math.trunc(seconds / 60);
       seconds = seconds % 60;
     }
-    setInterval(() => {
+    this.intervalTimerChat = setInterval(() => {
       secondAbsolute++;
       seconds++;
       if (seconds == 60) {

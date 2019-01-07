@@ -7,18 +7,43 @@
         <div class="row">
             <h4 class="titlePaquetes">Paquetes</h4>
             <div class="col l4 s12 imgSusc">
-                <img src="../../../assets/img/suscripcion/s39.png" alt="">
+                <a class="modal-trigger" href="#modal1" (click)="setProducto(0)">
+                    <img src="../../../assets/img/suscripcion/s39.png" alt="">
+                </a>
             </div>
             <div class="col l4 s12 imgSusc">
-                <img src="../../../assets/img/suscripcion/s19.png" alt="">
+                <a class="modal-trigger" href="#modal1" (click)="setProducto(1)">
+                    <img src="../../../assets/img/suscripcion/s19.png" alt="">
+                </a>
             </div>
             <div class="col l4 s12 imgSusc">
-                <img src="../../../assets/img/suscripcion/s9.png" alt="">
+                <a class="modal-trigger" href="#modal1" (click)="setProducto(2)">
+                    <img src="../../../assets/img/suscripcion/s9.png" alt="">
+                </a>
             </div>
             <div class="col l12 s12 publicidadImg">
                 <img src="../../../assets/img/publicidad/promo-10min-2.png" alt="">
             </div>
         </div>
+    </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content" style="text-align:center">
+        <h4 class="titleModalPago">Medios de Pago </h4>
+        <hr>
+        <form #formpaypal id="form-paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" [(ngModel)]="hosted_button_id">
+            <input (click)="formpaypal.submit()" src="../../../assets/img/pagos/logoPayPal.svg" name="submit" type="image">
+        </form>
+
+        <img (click)="openCulqi()" width="94" height="auto" src="../../../assets/img/pagos/culqi.png" class="img-fluid" style="cursor:pointer" id="buyButton_30" data-price="1300" data-product="Pq.30min" data-subtitle="Compra de Paquetes Josie D.C.">
+    </div>
+    <div class="modal-footer">
+        <a class="modal-close  btn-flat btnJosie">Cerrar</a>
     </div>
 </div>
 <app-footer></app-footer>
