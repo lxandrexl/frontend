@@ -39,8 +39,45 @@
     margin: 20px 0;
 }
 
+#contentLoading {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    z-index: 1501;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.titleLoading {
+    font-weight: 600;
+    color: rgb(28, 39, 88);
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.bodyLoading {
+    position: absolute;
+    width: 40%;
+    height: 200px;
+    top: 30%;
+    background-color: #ffffff;
+    left: 30%;
+    border-radius: 10px;
+    padding: 15px 50px;
+}
+
 @media only screen and (max-width: 730px) {
     .publicidadImg {
         display: none;
+    }
+    .bodyLoading {
+        width: 96%;
+        height: 180px;
+        left: 2%;
+        padding: 15px 30px;
+    }
+    .titleLoading {
+        font-size: 24px;
     }
 }

@@ -49,6 +49,26 @@ export class TokenService {
     this.cookieService.set('culqi_plan', name, 365);
   }
 
+  setCookieTmpName(name) {
+    this.cookieService.set('profile_name', name, 1);
+  }
+
+  setCookieTmpLastname(name) {
+    this.cookieService.set('profile_lastname', name, 1);
+  }
+
+  setCookieTmpTelefono(name) {
+    this.cookieService.set('profile_telefono', name, 1);
+  }
+
+  setCookieTmpDireccion(name) {
+    this.cookieService.set('profile_direccion', name, 1);
+  }
+
+  setCookieTmpPais(name) {
+    this.cookieService.set('profile_pais', name, 1);
+  }
+
   // ROOM TOKENS
   SetTimeRoom(time) {
     this.cookieService.set('time_room', time, 365);

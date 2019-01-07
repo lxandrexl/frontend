@@ -13,7 +13,7 @@ export class UserService {
   getProfileByToken(body): Observable<any> {
     return this.http.post(`${baseURL}/usuario/profile`, body);
   }
-
+  
   getPaquetes(idUsuario): Observable<any> {
     return this.http.post(`${baseURL}/usuario/paquetes`, idUsuario);
   }

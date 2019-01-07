@@ -28,9 +28,14 @@ export class SuscripcionComponent implements OnInit {
 
   ngOnInit() {
     this.initModal();
-    this.userService.getProfileByToken(this.tokenService.GetToken())
+    
+    this.userService.getProfileByToken(this.tokenService.GetPayload())
       .subscribe( response => {
-        console.log(response);
+        this.tokenService.setCookieTmpName(response.data.nombre);
+        this.tokenService.setCookieTmpLastname(response.data.apellido_paterno+' '+response.data.apellido_materno);
+        this.tokenService.setCookieTmpTelefono(response.data.telefono);
+        this.tokenService.setCookieTmpDireccion(response.data.direccion);
+        this.tokenService.setCookieTmpPais(response.data.pais);
     }, err => console.log(err));
   }
 

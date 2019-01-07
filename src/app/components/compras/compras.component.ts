@@ -43,8 +43,6 @@ export class ComprasComponent implements OnInit {
         this.apPaternoUser = this.userData.apellido_paterno;
         this.apMaternoUser = this.userData.apellido_materno;
         this.emailUser = this.userData.email;
-        console.log(this.emailUser);
-        
       })
   }
 
@@ -103,6 +101,4 @@ export class ComprasComponent implements OnInit {
     this.tokenService.setCookieCulqiEmail(this.emailUser);
     this.tokenService.setCookieCulqiType('Cargo');
   }
-
-
 }

@@ -76,6 +76,7 @@ export class JosiechatComponent implements OnInit {
     });
     this.socket.on('listen_josie_cancel', data => {
       if(data.token.token == this.profile.token) {
+        this.closeLlamadaProceso();
         swal({
           text: `Josie no pudo contestar, intentelo nuevamente por favor.`,
           icon: 'error'
@@ -88,13 +89,14 @@ export class JosiechatComponent implements OnInit {
       this.tokenService.SetPsiquicaRoom(data.psiquicaId);
       this.tokenService.setTokenRoom(data.chatToken);
       window.location.href='private-room';
-    })
+    });
   }
 
   ingresarChat() {
     if (this.josie.estado == '0') return;
     //clearInterval(this.currentTime);
     //this.showAdvise = false;
+    this.showLlamadaProceso();
     this.socket.emit('llamar_josie', {token: this.profile, cita: this.citaActual});
   }
 
@@ -348,6 +350,16 @@ export class JosiechatComponent implements OnInit {
     this.onLoadFirstNumber = this.onLoadFirstNumber - 7;
     this.onLoadLastNumber = this.onLoadLastNumber - 7;
     this.initCalendar(this.onLoadFirstNumber, this.onLoadLastNumber);
+  }
+
+  showLlamadaProceso() {
+    let descContainer = document.getElementsByClassName('shadowContainerLlamada') as HTMLCollectionOf<HTMLElement>;
+    descContainer[0].style.display = 'block';
+  }
+
+  closeLlamadaProceso() {
+    let descContainer = document.getElementsByClassName('shadowContainerLlamada') as HTMLCollectionOf<HTMLElement>;
+    descContainer[0].style.display = 'none';
   }
 
 }
