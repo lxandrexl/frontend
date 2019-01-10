@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -11,6 +11,7 @@ export class HoroscopoDetallesComponent implements OnInit {
   signoZodiaco: any = [];
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
   ) { }
@@ -23,7 +24,7 @@ export class HoroscopoDetallesComponent implements OnInit {
     const signo = this.route.snapshot.paramMap.get('signo');
     this.userService.getDetailsZodiaco(signo).subscribe( response => {
       this.signoZodiaco = response.data[0];
-    }, err => window.location.href='/');
+    }, err => this.router.navigate([`/`]));
   }
 
 }

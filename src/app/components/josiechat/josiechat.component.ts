@@ -7,6 +7,7 @@ import { socketURL } from '../../globalParameters';
 import * as moment from 'moment';
 import swal from 'sweetalert';
 import _ from 'lodash';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class JosiechatComponent implements OnInit {
   citaActual: any;
 
   constructor(
+    private router: Router,
     private psiquicaService: PsiquicaService,
     private tokenService: TokenService,
     private userService: UserService
@@ -88,7 +90,7 @@ export class JosiechatComponent implements OnInit {
 
       this.tokenService.SetPsiquicaRoom(data.psiquicaId);
       this.tokenService.setTokenRoom(data.chatToken);
-      window.location.href='private-room';
+      this.router.navigate(['/private-room']);
     });
   }
 
@@ -111,7 +113,7 @@ export class JosiechatComponent implements OnInit {
   }
 
   redirectCompras() {
-    window.location.href = 'compras';
+    this.router.navigate([`/compras`]);
   }
 
   loadProfile() {
@@ -361,5 +363,7 @@ export class JosiechatComponent implements OnInit {
     let descContainer = document.getElementsByClassName('shadowContainerLlamada') as HTMLCollectionOf<HTMLElement>;
     descContainer[0].style.display = 'none';
   }
+
+  
 
 }

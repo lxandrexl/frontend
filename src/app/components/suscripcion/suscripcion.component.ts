@@ -18,6 +18,7 @@ export class SuscripcionComponent implements OnInit {
   type_suscription: string;
   descCulqi = 'Suscripciones Josie D.C.';
   Culqi = window["Culqi"];
+  modalContainer: any;
 
   constructor(
     private tokenService: TokenService,
@@ -47,6 +48,8 @@ export class SuscripcionComponent implements OnInit {
   }
 
   setProducto(type) {
+    this.modalContainer = document.getElementById("modalContentSus");
+    this.modalContainer.style.display = "block";
     switch (type) {
       case 0:
         this.hosted_button_id = 'Z29JE9BYE99FL';
@@ -83,6 +86,11 @@ export class SuscripcionComponent implements OnInit {
 
     this.tokenService.setCookieCulqiType(this.type_suscription);
     this.tokenService.setCookieCulqiPlan(this.cod_plan);
+  }
+
+  closeModal() { 
+    this.modalContainer = document.getElementById("modalContentSus");
+    this.modalContainer.style.display = "none";
   }
 
 }

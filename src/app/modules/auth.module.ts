@@ -28,9 +28,7 @@ import { TokenService } from '../services/token.service';
 import { UserService } from '../services/user.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import {NgxAutoScrollModule} from "ngx-auto-scroll";
-//ALTERNATIVE SOLUTION FOR URLS NAVIGATION
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
+// ANGULAR MATERIAL
 
 @NgModule({
   imports: [
@@ -41,7 +39,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     FormsModule, 
     ReactiveFormsModule,
     FileUploadModule,
-    NgxAutoScrollModule
+    NgxAutoScrollModule,
   ],
   declarations: [
     HomeComponent, 
@@ -62,15 +60,14 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     SuscripcionslideComponent,
     LoginpsiquicaComponent,
     LobbyComponent,
-    LobbyClienteComponent
+    LobbyClienteComponent,
     ],
   exports: [],
   providers: [
     PsiquicaService, 
     AuthService, 
     TokenService, 
-    UserService,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    UserService
   ]
 })
 export class AuthModule { }

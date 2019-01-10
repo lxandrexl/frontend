@@ -7,6 +7,7 @@ import { PsiquicaService } from '../../services/psiquica.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lobby',
@@ -36,6 +37,7 @@ export class LobbyComponent implements OnInit {
   citaJosieReg: any = [];
 
   constructor(
+    private router: Router,
     private tokenService: TokenService,
     private psiquicaservice: PsiquicaService,
     private userService: UserService,
@@ -70,7 +72,12 @@ export class LobbyComponent implements OnInit {
       this.tokenService.DeleteTokenRoom();
       this.psiquicaservice.updateStatus(this.tokenService.GetPayloadPsiquica())
         .subscribe(response => {
-          if (response.message) window.location.href = 'lobby';
+          if (response.message) {
+            this.router.navigateByUrl('/loginpsiquica', { skipLocationChange: true })
+              .then(() =>
+                this.router.navigate(["lobby"])
+              );
+          }
         }, err => console.log(err));
     })
 
@@ -81,16 +88,21 @@ export class LobbyComponent implements OnInit {
           this.tokenService.DeleteTokenRoom();
           this.psiquicaservice.updateStatus(this.tokenService.GetPayloadPsiquica())
             .subscribe(response => {
-              if (response.message) window.location.href = 'lobby';
+              if (response.message) {
+                this.router.navigateByUrl('/loginpsiquica', { skipLocationChange: true })
+                  .then(() =>
+                    this.router.navigate(["lobby"])
+                  );
+              }
             }, err => console.log(err));
         })
     })
 
     this.socket.on('match_time', data => {
-      if(this.tokenService.GetTokenRoom() != data.roomToken) return;
+      if (this.tokenService.GetTokenRoom() != data.roomToken) return;
 
       this.timeRoom = data.timeRoom;
-      if(!this.initTimerChat) clearInterval(this.intervalTimerChat);
+      if (!this.initTimerChat) clearInterval(this.intervalTimerChat);
       this.initTimer();
       this.initTimerChat = true;
     })
@@ -100,7 +112,7 @@ export class LobbyComponent implements OnInit {
     this.psiquicaservice.getMessages(this.tokenService.GetTokenRoom())
       .subscribe(response => {
         this.chatContent = response.data;
-        if (this.psiquicaNombre != 'JOSIE')  this.timeRoom = parseInt(response.timeRoom);
+        if (this.psiquicaNombre != 'JOSIE') this.timeRoom = parseInt(response.timeRoom);
         this.initTimer();
       }, err => console.log(err));
   }
@@ -109,7 +121,7 @@ export class LobbyComponent implements OnInit {
     if (!this.tokenService.GetTokenCliente()) return
 
     this.clienteData = this.tokenService.GetPayLoadCliente();
-    this.socket.emit('entrar_chat_psiquica', { roomToken: this.tokenService.GetTokenRoom() });    
+    this.socket.emit('entrar_chat_psiquica', { roomToken: this.tokenService.GetTokenRoom() });
     this.valInput = 'validated';
     this.chatStatus = true;
     this.getMessages();
@@ -117,7 +129,7 @@ export class LobbyComponent implements OnInit {
   }
 
   initTimer() {
-    if(this.initTimerChat) return;
+    if (this.initTimerChat) return;
 
     let secondAbsolute = this.timeRoom;
     let minutes = 0;
@@ -195,7 +207,7 @@ export class LobbyComponent implements OnInit {
         this.socket.emit('refreshPsiquicas', { message: `${this.psiquicaNombre} salio.` })
         swal(response.message, '', 'info')
           .then(val => {
-            window.location.href = "loginpsiquica";
+            this.router.navigate(['/loginpsiquica']);
           })
       }
     }, err => console.log(err));
@@ -293,7 +305,10 @@ export class LobbyComponent implements OnInit {
           this.tokenService.setTokenRoom(response.chatToken);
           this.tokenService.SetTokenCliente(this.clienteToken);
           this.socket.emit('entrar_chat_psiquica', { roomToken: response.chatToken });
-          window.location.href = 'lobby';
+          this.router.navigateByUrl('/loginpsiquica', { skipLocationChange: true })
+            .then(() =>
+              this.router.navigate(["lobby"])
+            );
         }
       }, err => console.log(err));
     } else {
@@ -312,7 +327,10 @@ export class LobbyComponent implements OnInit {
           this.tokenService.setTokenRoom(response.chatToken);
           this.tokenService.SetTokenCliente(this.clienteToken);
           this.socket.emit('entrar_chat_psiquica', { roomToken: response.chatToken });
-          window.location.href = 'lobby';
+          this.router.navigateByUrl('/loginpsiquica', { skipLocationChange: true })
+            .then(() =>
+              this.router.navigate(["lobby"])
+            );
         }
       }, err => console.log(err));
     }

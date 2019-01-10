@@ -4,6 +4,7 @@ import { TokenService } from '../../services/token.service';
 import io from 'socket.io-client';
 import { socketURL } from '../../globalParameters';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lobby-cliente',
@@ -23,6 +24,7 @@ export class LobbyClienteComponent implements OnInit {
   tmpTokenRoom: any;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private tokenService: TokenService,
     private userService: UserService
@@ -141,7 +143,7 @@ export class LobbyClienteComponent implements OnInit {
       this.tokenService.DeleteMinutesroom();
       this.tokenService.DeleteSecondsRoom();
       this.tokenService.DeletePsiquicaRoom();
-      window.location.href = '';
+      this.router.navigate(['/']);
     })
 
     this.socket.on('end_chat_system', data => {
@@ -192,7 +194,7 @@ export class LobbyClienteComponent implements OnInit {
         this.comentario
       ).subscribe(response => {
         if (response.message) {
-          window.location.href = 'compras';
+          this.router.navigate(['/compras']);
         }
       }, err => console.log(err));
     }

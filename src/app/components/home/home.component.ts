@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../services/token.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ export class HomeComponent implements OnInit {
   user: any;
 
   constructor(
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -19,22 +21,28 @@ export class HomeComponent implements OnInit {
 
   citarJos() {
     if(!this.user) 
-      window.location.href="login";
+      this.router.navigate(['/login']);
+      //window.location.href="login";
     else
-      window.location.href="chat-josie";
+      this.router.navigate(['/chat-josie']);
+      //window.location.href="chat-josie";
   }
 
   citarPsi() {
     if(!this.user) 
-      window.location.href="login";
+      this.router.navigate(['/login']);
+      //window.location.href="login";
     else
-      window.location.href="chat-psiquica";
+    this.router.navigate(['/chat-psiquica']);
+      //window.location.href="chat-psiquica";
   }
 
   suscribir() {
     if(!this.user) 
-      window.location.href="login";
+      this.router.navigate(['/login']);
+      //window.location.href="login";
     else
-      window.location.href="suscripcion";
+      this.router.navigate(['/suscripcion']);
+      //window.location.href="suscripcion";
   }
 }

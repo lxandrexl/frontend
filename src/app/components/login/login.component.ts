@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/token.service';
 
 import swal from 'sweetalert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   
   loginForm: FormGroup;
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService
@@ -32,14 +34,14 @@ export class LoginComponent implements OnInit {
   }
 
   redirectRegistrar() {
-    window.location.href= "signin";
+    this.router.navigate(['/signin']);
   }
 
   loginUser() {
     this.authService.loginUser(this.loginForm.value).subscribe( data => {
       this.tokenService.SetToken(data.token);
         this.loginForm.reset();
-        swal(data.message, "", "success").then(() => window.location.href="perfil")
+        swal(data.message, "", "success").then(() => this.router.navigate(['/perfil']))
       
     }, err => swal(err.error.message, "", "error"));
   }

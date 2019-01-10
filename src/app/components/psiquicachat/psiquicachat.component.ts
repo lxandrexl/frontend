@@ -4,6 +4,7 @@ import { socketURL } from '../../globalParameters';
 import io from 'socket.io-client';
 import { TokenService } from '../../services/token.service';
 import swal from 'sweetalert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-psiquicachat',
@@ -20,6 +21,7 @@ export class PsiquicachatComponent implements OnInit {
   paquetes = [];
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private tokenService: TokenService
   ) { 
@@ -95,11 +97,11 @@ export class PsiquicachatComponent implements OnInit {
 
       this.tokenService.SetPsiquicaRoom(data.psiquicaId);
       this.tokenService.setTokenRoom(data.chatToken);
-      window.location.href='private-room';
+      this.router.navigate(['/private-room']);
     })
   }
 
   redirectShop() {
-    window.location.href = 'compras';
+    this.router.navigate(['/compras']);
   }
 }

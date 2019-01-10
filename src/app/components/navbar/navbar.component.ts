@@ -4,7 +4,6 @@ import { TokenService } from '../../services/token.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import io from 'socket.io-client';
-import * as moment from 'moment';
 import { socketURL } from '../../globalParameters';
 
 @Component({
@@ -26,6 +25,8 @@ export class NavbarComponent implements OnInit {
   timerInput2 = '';
   DataContainer: any;
   secondAbsolute = 0;
+  navBarContent: any;
+  navBarBody: any;
 
   @Output() globalPaquetes = new EventEmitter<any>();
   @Output() ChatData = new EventEmitter<any>();
@@ -34,7 +35,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
-    private route: Router
+    private router: Router,
   ) {
     this.socket = io(socketURL);
   }
@@ -48,7 +49,7 @@ export class NavbarComponent implements OnInit {
       if (this.tokenService.GetToken() === data) this.verifyTokenSession();
     });
     this.socket.on('reservo_cita', data => {
-      if(this.tokenService.GetToken() == data.token) {
+      if (this.tokenService.GetToken() == data.token) {
         this.verifyTokenSession();
       }
     });
@@ -59,7 +60,7 @@ export class NavbarComponent implements OnInit {
     if (!room) return;
 
     this.socket.emit('entrar_chat_cliente', { roomToken: this.tokenService.GetTokenRoom() });
-    if (this.route.url === '/private-room') this.onRoom = true;
+    if (this.router.url === '/private-room') this.onRoom = true;
     this.secondAbsolute = parseInt(this.tokenService.GetTimeRoom());
     this.initTimerClient();
     this.roomStatus = true;
@@ -98,7 +99,7 @@ export class NavbarComponent implements OnInit {
       this.tokenService.SetMinutesRoom(minutes);
       this.tokenService.SetSecondsRoom(seconds);
 
-      this.socket.emit('match_time_room', { roomToken: this.tokenService.GetTokenRoom(), timeRoom: this.tokenService.GetTimeRoom()});
+      this.socket.emit('match_time_room', { roomToken: this.tokenService.GetTokenRoom(), timeRoom: this.tokenService.GetTimeRoom() });
 
       this.DataContainer = {
         minutesRoom: parseInt(tmpMin),
@@ -135,11 +136,13 @@ export class NavbarComponent implements OnInit {
   }
 
   RedirectLogin() {
-    window.location.href = `/login`;
+    this.router.navigate(['/login']);
+    //window.location.href = `/login`;
   }
 
   RedirectHome() {
-    window.location.href = ``;
+    this.router.navigate(['/']);
+    //window.location.href = ``;
   }
 
   verifyTokenSession() {
@@ -178,4 +181,17 @@ export class NavbarComponent implements OnInit {
     return this.tokenService.GetPsiquicaRoom();
   }
 
+  routerAction(name) {
+    this.router.navigate([`/${name}`]);
+  }
+
+  showMovileNavbar() {
+    this.navBarContent = document.getElementById("nav_movile_content");
+    this.navBarContent.style.display = 'block';
+  }
+
+  hideMovileNavbar() {
+    this.navBarBody = document.getElementById("nav_movile_content");
+    this.navBarContent.style.display = 'none';
+  }
 }

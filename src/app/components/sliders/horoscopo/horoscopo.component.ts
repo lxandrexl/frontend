@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import io from 'socket.io-client';
 import {socketURL} from '../../../globalParameters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-horoscopo',
@@ -11,7 +12,7 @@ export class HoroscopoComponent implements OnInit {
   slideIndex = 1;
   socket: any;
 
-  constructor() { 
+  constructor(private router: Router) { 
     this.socket = io(socketURL);
   }
 
@@ -35,6 +36,6 @@ export class HoroscopoComponent implements OnInit {
   }
 
   redirectDetalles(signo) {
-    window.location.href= `/horoscopo/${signo}`;
+    this.router.navigate([`/horoscopo/${signo}`]);
   }
 }

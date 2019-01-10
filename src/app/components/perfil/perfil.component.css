@@ -133,4 +133,32 @@
     #secondList {
         margin-top: -20px;
     }
+    .modalProfileContent .modalContent {
+        width: 95% !important;
+        left: 2.5% !important;
+    }
+}
+
+.modalProfileContent {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    top: 0;
+    z-index: 1000;
+}
+
+.modalProfileContent .modalContent {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    top: 100px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.modalProfileContent .modal-close {
+    cursor: pointer;
 }

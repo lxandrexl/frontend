@@ -5,6 +5,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { socketURL } from '../../globalParameters';
 import io from 'socket.io-client';
 import swal from 'sweetalert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginpsiquica',
@@ -16,6 +17,7 @@ export class LoginpsiquicaComponent implements OnInit {
   socket: any;
   
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService
@@ -41,7 +43,7 @@ export class LoginpsiquicaComponent implements OnInit {
         this.socket.emit('refreshPsiquicas', {message: 'Hey, updated...'});
         swal(response.message, "", "success")
           .then(val => {
-              window.location.href="lobby";
+              this.router.navigate(['/lobby']);
           });
       }
     }, err => {

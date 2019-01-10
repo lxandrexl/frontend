@@ -7,7 +7,7 @@
                     <img class="imgProfile" src="{{perfilImg}}">
                     <h4 class="nameProfile">
                         {{perfil.nombre}} {{perfil.apellido_paterno}}
-                        <i class="fas fa-user-edit  modal-trigger tooltipped" href="#editarProfileModal" data-position="bottom" data-tooltip="Editar perfil"></i>
+                        <i class="fas fa-user-edit" (click)="openModalProfile()"></i>
 
                     </h4>
                     <div class="row">
@@ -59,16 +59,16 @@
                     <img src="../../../assets/img/publicidad/promo-10min.png">
                 </div>
                 <div class="col l12 s12 buttonsContent">
-                    <button class="waves-effect waves-light btn btnSpecial" onclick="window.location.href='compras'">
+                    <button class="waves-effect waves-light btn btnSpecial" routerLink="/compras">
                         <i class="far fa-clock"></i> {{perfil.min_psiquica}} min
                     </button>
-                    <button class="waves-effect waves-light btn btnJosie" onclick="window.location.href='chat-psiquica'">
+                    <button class="waves-effect waves-light btn btnJosie" routerLink="/chat-psiquica">
                         <i class="far fa-comment-alt"></i> Iniciar Chat
                     </button>
-                    <button class="waves-effect waves-light btn btnJosie" onclick="window.location.href='chat-josie'">
+                    <button class="waves-effect waves-light btn btnJosie" routerLink="/chat-josie">
                         <i class="far fa-comments"></i> Chat con Josie
                     </button>
-                    <button class="waves-effect waves-light btn btnJosie" onclick="window.location.href='suscripcion'">
+                    <button class="waves-effect waves-light btn btnJosie" routerLink="/suscripcion">
                         <i class="fas fa-check"></i> Mis suscripciones
                     </button>
                 </div>
@@ -78,9 +78,9 @@
 </div>
 
 <!-- Modal Structure -->
-<div id="editarProfileModal" class="modal">
-    <div class="modal-content">
-        <h5>Editar Perfil <i class="fas fa-times modal-close right"></i></h5>
+<div id="editarProfileModal" class="modalProfileContent">
+    <div class="modalContent">
+        <h5>Editar Perfil <i class="fas fa-times modal-close right" (click)="closeModal()"></i></h5>
         <hr>
         <div class="row">
             <div class="input-field col s12">

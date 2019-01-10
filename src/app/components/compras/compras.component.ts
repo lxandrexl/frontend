@@ -22,6 +22,7 @@ export class ComprasComponent implements OnInit {
   precioCulqi: String;
   descCulqi = 'Compra de Paquetes Josie D.C.';
   Culqi = window["Culqi"];
+  modalContent: any;
 
   constructor(
     private userService: UserService,
@@ -54,6 +55,8 @@ export class ComprasComponent implements OnInit {
   }
 
   setProducto(type) {
+    this.modalContent = document.getElementById('modalContent');
+    this.modalContent.style.display = 'block';
     switch (type) {
       case 0:
         this.ppHosted = 'G4PUQ4CQS3VCC';
@@ -100,5 +103,10 @@ export class ComprasComponent implements OnInit {
     this.tokenService.setCookieCulqiProduct(this.titleCulqi);
     this.tokenService.setCookieCulqiEmail(this.emailUser);
     this.tokenService.setCookieCulqiType('Cargo');
+  }
+
+  closeModal() {
+    this.modalContent = document.getElementById('modalContent');
+    this.modalContent.style.display = 'none';
   }
 }

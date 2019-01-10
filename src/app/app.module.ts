@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './modules/auth.module';
 import { AuthRoutingModule } from './modules/auth-routing.module';
 import { CookieService } from 'ngx-cookie-service';
+import { ComentariosComponent } from './components/comentarios/comentarios.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ComentariosComponent],
   imports: [
     BrowserModule,
     AuthModule,
-    AuthRoutingModule],
+    AuthRoutingModule,
+  ],
   providers: [
     CookieService
   ],

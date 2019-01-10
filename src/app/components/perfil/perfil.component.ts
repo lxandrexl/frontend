@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { FileUploader } from 'ng2-file-upload';
 import io from 'socket.io-client';
 import { baseURL, imgURL, socketURL } from '../../globalParameters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -23,6 +24,7 @@ export class PerfilComponent implements OnInit {
   selectedFile: any;
   extensionFile: any;
   socket: any;
+  modalProfile: any;
 
   uploader: FileUploader = new FileUploader({
       url: `${baseURL}/upload-image`,
@@ -30,6 +32,7 @@ export class PerfilComponent implements OnInit {
   })
 
   constructor(
+    private router: Router,
     private tokenService: TokenService,
     private userService: UserService
   ) { 
@@ -203,7 +206,10 @@ export class PerfilComponent implements OnInit {
         this.socket.emit('refreshPage', this.tokenService.GetToken());
         const filePath = <HTMLInputElement>document.getElementById('filePath');
         filePath.value = '';
-        swal(response.message, '', 'success');
+        swal(response.message, '', 'success').then(() => {
+            this.modalProfile = document.getElementById('editarProfileModal');
+            this.modalProfile.style.display = 'none';
+        });
     }, err => console.log(err));
   }
 
@@ -237,5 +243,14 @@ export class PerfilComponent implements OnInit {
     this.socket.on('refresh', data => {
         if(this.tokenService.GetToken() === data) this.GetProfileData();
     });
+  }
+
+  openModalProfile() {
+      this.modalProfile = document.getElementById('editarProfileModal');
+      this.modalProfile.style.display = 'block';
+  }
+  closeModal(){
+    this.modalProfile = document.getElementById('editarProfileModal');
+    this.modalProfile.style.display = 'none';
   }
 }
