@@ -174,6 +174,8 @@ export class NavbarComponent implements OnInit {
 
   destroyTokenSession() {
     this.tokenService.DeleteToken();
+    this.tokenService.DeleteCalendarPrevToken();
+    this.tokenService.DeleteCalendarNextToken();
     location.reload();
   }
 

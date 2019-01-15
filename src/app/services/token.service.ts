@@ -163,6 +163,14 @@ export class TokenService {
     this.cookieService.delete('chat_room');
   }
 
+  DeleteCalendarPrevToken() {
+    this.cookieService.delete('calendar_prev');
+  }
+
+  DeleteCalendarNextToken() {
+    this.cookieService.delete('calendar_next');
+  }
+
   // GET PAYLOADS
 
   GetPayload() {

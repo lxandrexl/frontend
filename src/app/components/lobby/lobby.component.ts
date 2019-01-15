@@ -206,9 +206,7 @@ export class LobbyComponent implements OnInit {
         this.tokenService.DeleteTokenPsiquica();
         this.socket.emit('refreshPsiquicas', { message: `${this.psiquicaNombre} salio.` })
         swal(response.message, '', 'info')
-          .then(val => {
-            this.router.navigate(['/loginpsiquica']);
-          })
+          .then(() => window.location.href= "/")
       }
     }, err => console.log(err));
   }

@@ -24,10 +24,6 @@ const routes:Routes = [
     component: HomeComponent,
   },
   { 
-    path: '**', 
-    component: PagenotfoundComponent 
-  },
-  { 
     path: 'horoscopo/:signo', 
     component:  HoroscopoDetallesComponent
   },
@@ -82,6 +78,10 @@ const routes:Routes = [
     path: 'private-room',
     component: LobbyClienteComponent,
     canActivate: [AuthLobbyGuard]
+  },
+  { 
+    path: '**', 
+    component: PagenotfoundComponent 
   }
 ];
 

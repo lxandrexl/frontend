@@ -58,7 +58,7 @@ export class SigninComponent implements OnInit {
         this.signupForm.reset();
         swal(data.message, "", "success").then(() => this.router.navigate(['/perfil']))
 
-    }, err => swal(err.error.message, "", "error"));
+    }, err =>   swal(err.error.msg[0].message, "", "error"));
   }
 
 }
