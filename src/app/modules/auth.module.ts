@@ -22,12 +22,14 @@ import { SuscripcionslideComponent } from '../components/sliders/suscripcionslid
 import { LoginpsiquicaComponent } from '../components/loginpsiquica/loginpsiquica.component';
 import { LobbyComponent } from '../components/lobby/lobby.component';
 import { LobbyClienteComponent } from '../components/lobby-cliente/lobby-cliente.component';
+import { ComentariosComponent } from '../components/comentarios/comentarios.component';
 import { PsiquicaService } from '../services/psiquica.service';
 import { AuthService } from '../services/auth.service';
 import { TokenService } from '../services/token.service';
 import { UserService } from '../services/user.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import {NgxAutoScrollModule} from "ngx-auto-scroll";
+import { PagenotfoundComponent } from '../components/pagenotfound/pagenotfound.component';
 // ANGULAR MATERIAL
 
 @NgModule({
@@ -61,6 +63,8 @@ import {NgxAutoScrollModule} from "ngx-auto-scroll";
     LoginpsiquicaComponent,
     LobbyComponent,
     LobbyClienteComponent,
+    ComentariosComponent,
+    PagenotfoundComponent
     ],
   exports: [],
   providers: [

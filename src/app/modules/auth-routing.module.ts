@@ -16,11 +16,16 @@ import { LobbyComponent } from '../components/lobby/lobby.component';
 import { AuthPsiquicaGuard } from '../services/auth-psiquica.guard';
 import { LobbyClienteComponent } from '../components/lobby-cliente/lobby-cliente.component';
 import { AuthLobbyGuard } from '../services/auth-lobby.guard';
+import { PagenotfoundComponent } from '../components/pagenotfound/pagenotfound.component';
 
 const routes:Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+  },
+  { 
+    path: '**', 
+    component: PagenotfoundComponent 
   },
   { 
     path: 'horoscopo/:signo', 
