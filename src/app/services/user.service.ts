@@ -10,6 +10,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getVideosHome(): Observable<any> {
+    return this.http.get(`${baseURL}/usuario/videos`);
+  }
+
   getProfileByToken(body): Observable<any> {
     return this.http.post(`${baseURL}/usuario/profile`, body);
   }

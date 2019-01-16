@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import io from 'socket.io-client';
-import {socketURL} from '../../../globalParameters';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +8,8 @@ import { Router } from '@angular/router';
 })
 export class HoroscopoComponent implements OnInit {
   slideIndex = 1;
-  socket: any;
 
-  constructor(private router: Router) { 
-    this.socket = io(socketURL);
-  }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.showSlides(1);

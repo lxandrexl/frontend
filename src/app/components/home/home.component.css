@@ -1,3 +1,8 @@
+.homeslider {
+    height: 100vh;
+    margin-bottom: 100px;
+}
+
 .firstContent {
     background-image: url('../../../assets/img/sol.png');
     background-repeat: no-repeat;
@@ -107,6 +112,20 @@
     color: #FFFFFF;
 }
 
+.videoContent {
+    z-index: 1000; 
+    position: absolute;
+    top: 90%;
+    width: 100%;
+    display: flex;
+}
+.videoContent .item {
+    display:block;
+    margin:auto;
+    height: 200px;
+    width: 300px;
+}
+
 @media only screen and (max-width: 730px) {
     .fourthContent img {
         width: 95%;
@@ -119,5 +138,23 @@
     }
     .fifthContent ul {
         margin-right: 0;
+    }
+
+    .videoContent {
+        display: none;
+    }
+    .homeslider{
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: 730px ) and (orientation: portrait) {
+    .homeslider {
+        height: 35vh;
+    }
+}
+@media only screen and (max-width: 730px ) and (orientation: landscape) {
+    .homeslider {
+        margin-bottom: 50px;
     }
 }

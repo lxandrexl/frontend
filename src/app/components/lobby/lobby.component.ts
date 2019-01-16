@@ -73,10 +73,13 @@ export class LobbyComponent implements OnInit {
       this.psiquicaservice.updateStatus(this.tokenService.GetPayloadPsiquica())
         .subscribe(response => {
           if (response.message) {
-            this.router.navigateByUrl('/loginpsiquica', { skipLocationChange: true })
-              .then(() =>
-                this.router.navigate(["lobby"])
-              );
+            swal('El chat finalizo', '', 'info')
+              .then(() => {
+                this.router.navigateByUrl('/loginpsiquica', { skipLocationChange: true })
+                  .then(() =>
+                    this.router.navigate(["lobby"])
+                  );
+              })
           }
         }, err => console.log(err));
     })
@@ -206,11 +209,10 @@ export class LobbyComponent implements OnInit {
         this.tokenService.DeleteTokenPsiquica();
         this.socket.emit('refreshPsiquicas', { message: `${this.psiquicaNombre} salio.` })
         swal(response.message, '', 'info')
-          .then(() => window.location.href= "/")
+          .then(() => window.location.href = "/")
       }
     }, err => console.log(err));
   }
-
 
   iniciarAudio() {
     this.audio.src = "../../../assets/audio/chatmusica.mp3";

@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import { socketURL } from '../../globalParameters';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-lobby-cliente',
@@ -137,13 +138,18 @@ export class LobbyClienteComponent implements OnInit {
     })
 
     this.socket.on('end_chat', data => {
+      clearInterval(this.timerRoom);
       this.closeCita();
-      this.tokenService.DeleteTokenRoom();
-      this.tokenService.DeleteTimeRoom();
-      this.tokenService.DeleteMinutesroom();
-      this.tokenService.DeleteSecondsRoom();
-      this.tokenService.DeletePsiquicaRoom();
-      this.router.navigate(['/']);
+      swal('La psiquica cerro el chat', '', 'info')
+        .then(() => {
+          this.tokenService.DeleteTokenRoom();
+          this.tokenService.DeleteTimeRoom();
+          this.tokenService.DeleteMinutesroom();
+          this.tokenService.DeleteSecondsRoom();
+          this.tokenService.DeletePsiquicaRoom();
+          //this.router.navigate(['/']);
+          window.location.href = '/';
+        })
     })
 
     this.socket.on('end_chat_system', data => {
@@ -203,7 +209,7 @@ export class LobbyClienteComponent implements OnInit {
 
   closeCita() {
     if (this.tokenService.GetPsiquicaRoom() == '3') {
-      this.userService.closeCita(this.roomToken).subscribe( response => {
+      this.userService.closeCita(this.roomToken).subscribe(response => {
         console.log(response);
       }, err => console.log(err));
     }

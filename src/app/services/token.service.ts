@@ -89,13 +89,13 @@ export class TokenService {
     return this.cookieService.get('minutes_room');
   }
   DeleteTimeRoom() {
-    this.cookieService.delete('time_room');
+    let timerom = this.cookieService.delete('time_room');
   }
   DeleteSecondsRoom() {
-    this.cookieService.delete('seconds_room');
+    let secondrom = this.cookieService.delete('seconds_room');
   }
   DeleteMinutesroom() {
-    this.cookieService.delete('minutes_room');
+    let minuterom = this.cookieService.delete('minutes_room');
   }
 
   // SET TOKENS

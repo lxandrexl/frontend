@@ -1,14 +1,29 @@
 <app-navbar></app-navbar>
 <div class="containerBody">
-    <div class="row">
-        <div class="col l6 s12 firstContent">
-            <h4 class="titleHome center">Bienvenido al chat de Josie y sus psíquicas</h4>
-            <div class="btnCenter">
-                <button (click)="citarJos()" class="waves-effect waves-light btn btnJosie">Separa tu cita</button>
+    <div class="row homeslider">
+        <app-homeslide></app-homeslide>
+        <div class="row videoContent" *ngIf="video_ready">
+            <div class="col l4 item">
+                    <iframe width="300" height="200" 
+                    [src]="horoscopo" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
             </div>
-        </div>
-        <div class="col l6 s12">
-            <iframe class="videoHome" src="../../../assets/video/chatjosie.mp4" frameborder="0" loop></iframe>
+            <div class="col l4 item">
+                    <iframe width="300" height="200" 
+                    [src]="tip"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+            </div>
+            <div class="col l4 item">
+                    <iframe width="300" height="200" 
+                    [src]="promo"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 
@@ -42,6 +57,8 @@
             </button>
         </div>
     </div>
+
+
 
     <!--div class="row fifthContent">
         <div class="col l4 s12 title">Josie Social</div>
