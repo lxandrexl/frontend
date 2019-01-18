@@ -24,10 +24,10 @@
         <div *ngFor="let chat of chatContent">
             <div id="cliente-content-message" *ngIf="chat.emisor === 'c'">
                 <img src="http://placehold.it/50x50">
-                <div id="cliente-message">{{chat.mensaje}}</div>
+                <div id="cliente-message" [innerHTML]="evalTypeMessage(chat.mensaje)"></div>
             </div>
             <div id="psiquica-content-message" *ngIf="chat.emisor === 'p'">
-                <div id="psiquica-message">{{chat.mensaje}}</div>
+                <div id="psiquica-message" [innerHTML]="evalTypeMessage(chat.mensaje)"></div>
             </div>
         </div>
     </div>
@@ -38,6 +38,8 @@
                     <div class="input-field col s12 sendMsg">
                         <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
                         <input type="hidden" [(ngModel)]="valInput" formControlName="validator">
+                        <a *ngIf="!audioStatus" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a>
+                        <a *ngIf="audioStatus" (click)="TerminarAudio()" class="btnSend btnJosie audioBtnStop"><i class="material-icons">stop</i></a>
                         <button class="btnSendMsg btnJosie" [disabled]="!chatForm.valid">Enviar</button>
                     </div>
                 </div>

@@ -37,6 +37,34 @@
     font-weight: 600;
 }
 
+.audioBtn {
+    background-color: #ebebeb;
+    border: 0;
+    width: 50px;
+    color: rgb(28, 39, 88);
+    cursor: pointer;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.audioBtnStop {
+    background-color: #ebebeb;
+    border: 0;
+    width: 50px;
+    color: red;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.audioBtn i {
+    font-size: 50px;
+}
+
+.audioBtnStop i {
+    font-size: 50px;
+}
+
 
 /*Lobby content */
 

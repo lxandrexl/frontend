@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { TokenService } from '../../services/token.service';
 import io from 'socket.io-client';
-import { socketURL } from '../../globalParameters';
+import { socketURL, audioURL } from '../../globalParameters';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
@@ -12,6 +12,7 @@ import swal from 'sweetalert';
   templateUrl: './lobby-cliente.component.html',
   styleUrls: ['./lobby-cliente.component.css']
 })
+
 export class LobbyClienteComponent implements OnInit {
   chatClienteForm: FormGroup;
   roomToken: any;
@@ -23,12 +24,15 @@ export class LobbyClienteComponent implements OnInit {
   timerRoom: any;
   expireTime = false;
   tmpTokenRoom: any;
+  audioStatus = false;
+  rec: any;
+  audioChunks: any = [];
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private tokenService: TokenService,
-    private userService: UserService
+    public userService: UserService
   ) {
     this.socket = io(socketURL);
   }
@@ -38,6 +42,7 @@ export class LobbyClienteComponent implements OnInit {
     this.iniciarChat();
     this.listenMessage();
     this.updateTimeRoom();
+    this.askPermissions();
   }
 
   iniciarChat() {
@@ -79,6 +84,17 @@ export class LobbyClienteComponent implements OnInit {
       .subscribe(response => {
         this.chatContent = response.data;
       }, err => console.log(err));
+  }
+
+  evalTypeMessage(message) {
+    if (message.includes('.ogg')) {
+      return `<audio controls>
+        <source src="${audioURL}${message}" type="audio/ogg">
+        Your browser does not support the audio tag.
+      </audio>`;
+    } else {
+      return message;
+    }
   }
 
   receiverChatData(event) {
@@ -215,5 +231,59 @@ export class LobbyClienteComponent implements OnInit {
     }
   }
 
+  GrabarAudio() {
+    this.audioStatus = true;
+    this.rec.start();
+  }
+
+  TerminarAudio() {
+    this.audioStatus = false;
+    this.rec.stop();
+  }
+
+  askPermissions() {
+    navigator.mediaDevices.getUserMedia({
+      audio: true
+    })
+      .then(stream => {
+        this.handlerFunction(stream);
+      })
+  }
+
+  handlerFunction(stream) {
+    let parentThis = this;
+    this.rec = new MediaRecorder(stream);
+    this.rec.ondataavailable = e => {
+      this.audioChunks.push(e.data);
+      if (this.rec.state == "inactive") {
+        let blob = new Blob(this.audioChunks, {
+          type: 'audio/ogg'
+        })
+        this.blobToBase64(blob, function (base64) {
+          parentThis.SendAudio(base64);
+        });
+      }
+    }
+  }
+
+  SendAudio(base64) {
+    const psiquica = this.tokenService.GetPsiquicaRoom();
+    const usuario = this.tokenService.GetPayload().id_usuario;
+    const room = this.tokenService.GetTokenRoom();
+    this.userService.sendAudio(room, usuario, psiquica, base64).subscribe((response) => {
+      this.audioChunks = [];
+      this.socket.emit("mensaje", { room: this.tokenService.GetTokenRoom() });
+    }, err => console.log(err))
+  }
+
+  blobToBase64 = (blob, cb) => {
+    let reader = new FileReader();
+    reader.onload = function () {
+      let dataUrl = reader.result;
+      let base64 = (dataUrl as string).split(',')[1];
+      cb(base64);
+    };
+    reader.readAsDataURL(blob);
+  };
 
 }

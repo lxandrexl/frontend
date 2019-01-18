@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../services/token.service';
 import * as M from 'materialize-css';
 import io from 'socket.io-client';
-import { socketURL } from '../../globalParameters';
+import { socketURL, audioURL } from '../../globalParameters';
 import { PsiquicaService } from '../../services/psiquica.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert';
@@ -35,6 +35,9 @@ export class LobbyComponent implements OnInit {
   initTimerChat: boolean = false;
 
   citaJosieReg: any = [];
+  audioStatus = false;
+  audioChunks: any = [];
+  rec: any;
 
   constructor(
     private router: Router,
@@ -47,6 +50,7 @@ export class LobbyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.askPermissions();
     this.validarChatRoom();
     this.listenSocket();
     this.NabMobile();
@@ -118,6 +122,17 @@ export class LobbyComponent implements OnInit {
         if (this.psiquicaNombre != 'JOSIE') this.timeRoom = parseInt(response.timeRoom);
         this.initTimer();
       }, err => console.log(err));
+  }
+
+  evalTypeMessage(message) {
+    if (message.includes('.ogg')) {
+      return `<audio controls>
+        <source src="${audioURL}${message}" type="audio/ogg">
+        Your browser does not support the audio tag.
+      </audio>`;
+    } else {
+      return message;
+    }
   }
 
   validarChatRoom() {
@@ -357,4 +372,60 @@ export class LobbyComponent implements OnInit {
         }
       })
   }
+
+  GrabarAudio() {
+    this.audioStatus = true;
+    this.rec.start();
+  }
+
+  TerminarAudio() {
+    this.audioStatus = false;
+    this.rec.stop();
+  }
+
+  askPermissions() {
+    navigator.mediaDevices.getUserMedia({
+      audio: true
+    })
+      .then(stream => {
+        this.handlerFunction(stream);
+      })
+  }
+
+  handlerFunction(stream) {
+    let parentThis = this;
+    this.rec = new MediaRecorder(stream);
+    this.rec.ondataavailable = e => {
+      this.audioChunks.push(e.data);
+      if (this.rec.state == "inactive") {
+        let blob = new Blob(this.audioChunks, {
+          type: 'audio/ogg'
+        })
+        this.blobToBase64(blob, function (base64) {
+          parentThis.SendAudio(base64);
+        });
+      }
+    }
+  }
+
+  SendAudio(base64) {
+    const psiquica = this.tokenService.GetPsiquicaRoom();
+    const usuario = this.tokenService.GetPayLoadCliente().id_usuario;
+    const room = this.tokenService.GetTokenRoom();
+    this.psiquicaservice.sendAudio(room, usuario, psiquica, base64).subscribe((response) => {
+      this.audioChunks = [];
+      this.socket.emit("mensaje", { room: this.tokenService.GetTokenRoom() });
+    }, err => console.log(err))
+  }
+
+  blobToBase64 = (blob, cb) => {
+    let reader = new FileReader();
+    reader.onload = function () {
+      let dataUrl = reader.result;
+      let base64 = (dataUrl as string).split(',')[1];
+      cb(base64);
+    };
+    reader.readAsDataURL(blob);
+  };
+
 }

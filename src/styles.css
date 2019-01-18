@@ -83,6 +83,12 @@ button {
     border-bottom: 2px solid #f57c00;
 }
 
+.chatSection audio {
+    display: inline-block;
+    height: 30px !important;
+    width: 250px !important;
+}
+
 
 /* SCROLL BAR PAGE 
 

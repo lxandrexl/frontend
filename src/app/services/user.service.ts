@@ -10,6 +10,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  sendAudio(room, user, psiquica, audio): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/audioChat`, {
+      room: room,
+      usuario: user,
+      psiquica: psiquica,
+      audio: audio
+    })
+  }
+
   getHistorialCompras(email): Observable<any> {
     return this.http.post(`${baseURL}/usuario/historialcompras`, {email: email});
   }

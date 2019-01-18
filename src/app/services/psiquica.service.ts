@@ -10,6 +10,15 @@ export class PsiquicaService {
 
   constructor(private http: HttpClient) { }
 
+  sendAudio(room, user, psiquica, audio): Observable<any> {
+    return this.http.post(`${baseURL}/psiquica/audioChat`, {
+      room: room,
+      usuario: user,
+      psiquica: psiquica,
+      audio: audio
+    })
+  }
+
   getComentarios(_id): Observable<any> {
     return this.http.post(`${baseURL}/psiquica/getComentarios`, {_id: _id});
   }

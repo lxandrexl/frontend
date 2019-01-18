@@ -4,11 +4,11 @@
     <div class="chatSection" ngx-auto-scroll lock-y-offset="10" observe-attributes>
         <div *ngFor="let chat of chatContent">
             <div id="cliente-content-message" *ngIf="chat.emisor === 'c'">
-                <div id="cliente-message">{{chat.mensaje}}</div>
+                <div class="cliente-message" [innerHTML]="evalTypeMessage(chat.mensaje)"></div>
             </div>
             <div id="psiquica-content-message" *ngIf="chat.emisor === 'p'">
                 <img src="http://placehold.it/50x50">
-                <div id="psiquica-message">{{chat.mensaje}}</div>
+                <div class="psiquica-message" [innerHTML]="evalTypeMessage(chat.mensaje)"></div>
             </div>
         </div>
     </div>
@@ -18,6 +18,8 @@
                 <div class="row">
                     <div class="input-field col s12 sendMsg">
                         <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
+                        <a *ngIf="!audioStatus" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a>
+                        <a *ngIf="audioStatus" (click)="TerminarAudio()" class="btnSend btnJosie audioBtnStop"><i class="material-icons">stop</i></a>
                         <button class="btnSendMsg btnJosie" [disabled]="!chatClienteForm.valid">Enviar</button>
                     </div>
                 </div>
