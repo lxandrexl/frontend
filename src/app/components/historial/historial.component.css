@@ -1,0 +1,28 @@
+.containerBody {
+    padding: 15px 30px;
+}
+
+h4 {
+    color: rgb(28, 39, 88);
+}
+
+table {
+    margin-top: 30px;
+    border-right: 1px solid rgba(28, 39, 88, .7);
+    border-left: 1px solid rgba(28, 39, 88, .7);
+}
+
+thead tr th {
+    border-bottom: 1px solid rgb(28, 39, 88);
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+    background-color: rgba(28, 39, 88, .7);
+    color: #FFFFFF;
+    border-radius: 0;
+}
+
+tbody tr#first td {
+    border-top: 3px solid #4d4d4d;
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+}

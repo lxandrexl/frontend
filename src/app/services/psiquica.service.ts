@@ -10,6 +10,10 @@ export class PsiquicaService {
 
   constructor(private http: HttpClient) { }
 
+  getComentarios(_id): Observable<any> {
+    return this.http.post(`${baseURL}/psiquica/getComentarios`, {_id: _id});
+  }
+
   closeSession(body): Observable<any> {
     return this.http.post(`${baseURL}/psiquica/closeSession`, body);
   }

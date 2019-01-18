@@ -2,28 +2,23 @@
 <div class="containerBody">
     <div class="row homeslider">
         <app-homeslide></app-homeslide>
-        <div class="row videoContent" *ngIf="video_ready">
-            <div class="col l4 item">
-                    <iframe width="300" height="200" 
-                    [src]="horoscopo" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>
-            </div>
-            <div class="col l4 item">
-                    <iframe width="300" height="200" 
-                    [src]="tip"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>
-            </div>
-            <div class="col l4 item">
-                    <iframe width="300" height="200" 
-                    [src]="promo"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen></iframe>
-            </div>
+    </div>
+    <div class="row videoContent" *ngIf="video_ready">
+        <div class="item">
+            <iframe width="300" height="200" [src]="horoscopo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="item">
+            <iframe width="300" height="200" [src]="tip" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="item">
+            <iframe width="300" height="200" [src]="promo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="row videoMovile">
+        <div class="col l12 s12">
+            <h4>Horoscopo de la Semana</h4>
+            <iframe [src]="horoscopo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 

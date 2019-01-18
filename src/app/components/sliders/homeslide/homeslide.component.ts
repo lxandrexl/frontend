@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
 import { TokenService } from 'src/app/services/token.service';
+import { imgURL } from '../../../globalParameters';
 
 @Component({
   selector: 'app-homeslide',
@@ -12,14 +13,17 @@ export class HomeslideComponent implements OnInit {
   itemPos = 1;
   sub: any;
   user: any;
+  baseurl: string;
+  tiempoSlider = 5000;
   constructor(private tokenService: TokenService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.baseurl = imgURL;
     this.user = this.tokenService.GetToken();
     this.showSlidesPsi(this.itemPos);
-    this.sub = interval(3000).subscribe(res => {
+    this.sub = interval(this.tiempoSlider).subscribe(res => {
       this.itemPos++;
       this.showSlidesPsi(this.itemPos)
     })

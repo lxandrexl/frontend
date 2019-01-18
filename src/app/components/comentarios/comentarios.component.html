@@ -1,3 +1,9 @@
-<p>
-  comentarios works!
-</p>
+<ul class="collapsible popout">
+    <li *ngFor="let comentario of comentarios">
+        <div class="collapsible-header">
+            <i class="material-icons">account_box</i> De: {{comentario.nombre}} {{comentario.apellido_paterno}}
+            <img class="calificacion" src="../../../assets/calificacion/{{comentario.evaluacion}}.png" alt="">
+        </div>
+        <div class="collapsible-body"><span>{{comentario.comentario}}</span></div>
+    </li>
+</ul>

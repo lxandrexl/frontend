@@ -1,5 +1,35 @@
 <app-navbar></app-navbar>
 <div class="containerBody">
-    <h1>Historial de compras</h1>
+    <div class="row">
+        <div class="col l12 s12">
+            <h4>Mis compras...</h4>
+            <hr>
+        </div>
+        <div class="col l12 s12">
+            <table class="responsive-table striped centered ">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Paquete</th>
+                        <th>Canal</th>
+                        <th>Fecha de compra</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="compras.length > 0">
+                    <tr *ngFor="let compra of compras; let rowIndex=index">
+                        <td>{{rowIndex + 1}}</td>
+                        <td>{{compra.nombre_producto}}</td>
+                        <td>{{compra.metodo_pago}}</td>
+                        <td>{{FormatDate(compra.fecha_reg)}}</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="compras.length <= 0">
+                    <tr>
+                        <td colspan="4">No tiene compras aún...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <app-footer></app-footer>

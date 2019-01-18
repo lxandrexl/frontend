@@ -1,27 +1,35 @@
 .homeslider {
-    height: 100vh;
-    margin-bottom: 100px;
+    display: block;
+    margin: 0;
 }
 
-.firstContent {
-    background-image: url('../../../assets/img/sol.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-bottom: 30px;
-}
-
-.titleHome {
-    font-weight: bold;
-    color: rgb(28, 39, 88);
-    padding-top: 250px;
-    font-size: 28px;
-}
-
-.videoHome {
+.videoContent {
+    z-index: 996;
     width: 100%;
-    height: 400px;
-    padding-top: 10px;
-    margin-bottom: 30px;
+    display: flex;
+    top: 100%;
+    margin-top: -100px;
+}
+
+.videoContent .item {
+    display: block;
+    margin: auto;
+    height: 200px;
+    width: 300px;
+}
+
+.videoMovile {
+    display: none;
+}
+
+.videoMovile h4 {
+    text-align: center;
+    color: rgb(28, 39, 88);
+}
+
+.videoMovile iframe {
+    width: 100%;
+    height: 250px;
 }
 
 .secondContent {
@@ -37,6 +45,7 @@
 
 .thirdContent {
     margin-bottom: 70px;
+    margin-top: 50px;
 }
 
 .thirdContent .firstPart {
@@ -112,21 +121,10 @@
     color: #FFFFFF;
 }
 
-.videoContent {
-    z-index: 1000; 
-    position: absolute;
-    top: 90%;
-    width: 100%;
-    display: flex;
-}
-.videoContent .item {
-    display:block;
-    margin:auto;
-    height: 200px;
-    width: 300px;
-}
-
 @media only screen and (max-width: 730px) {
+    .videoMovile {
+        display: block;
+    }
     .fourthContent img {
         width: 95%;
     }
@@ -139,22 +137,25 @@
     .fifthContent ul {
         margin-right: 0;
     }
-
     .videoContent {
         display: none;
     }
-    .homeslider{
-        margin-bottom: 0;
+    .homeslider {
+        margin-bottom: 150px;
+    }
+    .thirdContent .firstPart {
+        margin-top: 20px;
     }
 }
 
-@media only screen and (max-width: 730px ) and (orientation: portrait) {
+@media only screen and (max-width: 730px) and (orientation: portrait) {
     .homeslider {
         height: 35vh;
     }
 }
-@media only screen and (max-width: 730px ) and (orientation: landscape) {
+
+@media only screen and (max-width: 730px) and (orientation: landscape) {
     .homeslider {
-        margin-bottom: 50px;
+        margin-bottom: 300px;
     }
 }

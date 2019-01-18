@@ -10,6 +10,10 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getHistorialCompras(email): Observable<any> {
+    return this.http.post(`${baseURL}/usuario/historialcompras`, {email: email});
+  }
+
   getVideosHome(): Observable<any> {
     return this.http.get(`${baseURL}/usuario/videos`);
   }
