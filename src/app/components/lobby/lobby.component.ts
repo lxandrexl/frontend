@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-lobby',
@@ -20,7 +21,7 @@ export class LobbyComponent implements OnInit {
   psiquicaNombre: string;
   psiquicaCod: string;
   chatForm: FormGroup;
-  clienteData = [];
+  clienteData: any = [];
   clienteStatus = false;
   clienteToken: any;
   audio = new Audio();
@@ -38,6 +39,7 @@ export class LobbyComponent implements OnInit {
   audioStatus = false;
   audioChunks: any = [];
   rec: any;
+  btnAudio = false;
 
   constructor(
     private router: Router,
@@ -388,8 +390,10 @@ export class LobbyComponent implements OnInit {
       audio: true
     })
       .then(stream => {
+        this.btnAudio = true;        
         this.handlerFunction(stream);
       })
+      .catch((err) => { })
   }
 
   handlerFunction(stream) {
@@ -427,5 +431,21 @@ export class LobbyComponent implements OnInit {
     };
     reader.readAsDataURL(blob);
   };
+
+  showHistory() {
+    this.router.navigate(["historial-chat"]);
+  }
+
+  showUser() {
+    console.log(this.clienteData);
+    swal({
+      title: "Datos del usuario...",
+      text: `Nombres: ${this.clienteData.nombre} ${this.clienteData.apellido_paterno} ${this.clienteData.apellido_materno} 
+            Fecha de nacimiento: ${moment(this.clienteData.fecha_nacimiento).format('DD-MM-YYYY')}
+            Genero: ${(this.clienteData.sexo === "M") ? 'Masculino' : 'Femenino'}
+            Pais: ${this.clienteData.pais}`,
+      buttons: ["Cancelar", true],
+    })
+  }
 
 }

@@ -17,6 +17,7 @@ import { AuthPsiquicaGuard } from '../services/auth-psiquica.guard';
 import { LobbyClienteComponent } from '../components/lobby-cliente/lobby-cliente.component';
 import { AuthLobbyGuard } from '../services/auth-lobby.guard';
 import { PagenotfoundComponent } from '../components/pagenotfound/pagenotfound.component';
+import { HistorychatComponent } from '../components/historychat/historychat.component';
 
 const routes:Routes = [
   {
@@ -78,6 +79,11 @@ const routes:Routes = [
     path: 'private-room',
     component: LobbyClienteComponent,
     canActivate: [AuthLobbyGuard]
+  },
+  {
+    path: 'historial-chat',
+    component: HistorychatComponent,
+    canActivate: [AuthPsiquicaGuard]
   },
   { 
     path: '**', 

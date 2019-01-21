@@ -31,6 +31,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import {NgxAutoScrollModule} from "ngx-auto-scroll";
 import { PagenotfoundComponent } from '../components/pagenotfound/pagenotfound.component';
 import { HomeslideComponent } from '../components/sliders/homeslide/homeslide.component';
+import { HistorychatComponent } from '../components/historychat/historychat.component';
 // ANGULAR MATERIAL
 
 @NgModule({
@@ -66,7 +67,8 @@ import { HomeslideComponent } from '../components/sliders/homeslide/homeslide.co
     LobbyClienteComponent,
     ComentariosComponent,
     PagenotfoundComponent,
-    HomeslideComponent
+    HomeslideComponent,
+    HistorychatComponent
     ],
   exports: [],
   providers: [

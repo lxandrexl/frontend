@@ -1,0 +1,72 @@
+<div class="navbar-fixed">
+    <nav class=" bg-jossie">
+        <div class="nav-wrapper">
+            <a class="brand-logo" (click)="redirect()"><img src="assets/img/logo.png" alt=""></a>
+            <a class="brand-logo mobile" [innerHTML]="timerInput1"></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <button (click)="Regresar()" class="waves-effect waves-light btn orange darken-2 btnIniciarSesion">Regresar</button>
+                </li>
+            </ul>
+            <a href="#" data-target="slide-out" class="sidenav-trigger "><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+</div>
+
+<div class="bodyHistory">
+    <h5 *ngIf="profile">Historial de {{profile.usuario}}</h5>
+    <hr>
+    <div class="row buscadorFrm">
+        <form [formGroup]="chatForm" novalidate (ngSubmit)="GetChats()">
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">date_range</i>
+                    <input type="date" class="validate" formControlName="fecha" autocomplete="off">
+                </div>
+                <div class="col s6">
+                    <button class="btn btnJosie btnBuscador" [disabled]="!chatForm.valid">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row tableChat">
+        <table class="responsive-table striped centered ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Minutos</th>
+                    <th>Segundos</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="chats.length > 0">
+                <tr *ngFor="let chat of chats; let rowIndex=index">
+                    <td>{{rowIndex + 1}}</td>
+                    <td>{{chat.nombre}} {{chat.apellido_paterno}}</td>
+                    <td>{{GetMinutes(chat.tiempo)}}</td>
+                    <td>{{GetSeconds(chat.tiempo)}}</td>
+                    <td>{{FormatDate(chat.fecha_inicio)}}</td>
+                    <td>{{FormatDate(chat.fecha_fin)}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr *ngIf="showTotal">
+                    <td>#</td>
+                    <td>Total</td>
+                    <td>{{totalMinutos}}</td>
+                    <td>{{totalSegundos}}</td>
+                    <td>#</td>
+                    <td>#</td>
+                </tr>
+            </tfoot>
+            <tbody *ngIf="chats.length <= 0">
+                <tr>
+                    <td colspan="6">No tienes chats en esta fecha.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

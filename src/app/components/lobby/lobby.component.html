@@ -1,3 +1,8 @@
+<div class="cloud-details">
+    <i *ngIf="!chatStatus" (click)="showHistory()" class="material-icons">assignment</i>
+    <i *ngIf="chatStatus" (click)="showUser()" class="material-icons">assignment_ind</i>
+</div>
+
 <div class="navbar-fixed">
     <nav class=" bg-jossie">
         <div class="nav-wrapper">
@@ -38,7 +43,7 @@
                     <div class="input-field col s12 sendMsg">
                         <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
                         <input type="hidden" [(ngModel)]="valInput" formControlName="validator">
-                        <a *ngIf="!audioStatus" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a>
+                        <a *ngIf="!audioStatus && btnAudio" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a>
                         <a *ngIf="audioStatus" (click)="TerminarAudio()" class="btnSend btnJosie audioBtnStop"><i class="material-icons">stop</i></a>
                         <button class="btnSendMsg btnJosie" [disabled]="!chatForm.valid">Enviar</button>
                     </div>

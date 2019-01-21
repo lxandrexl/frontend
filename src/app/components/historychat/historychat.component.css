@@ -1,0 +1,82 @@
+.bg-jossie {
+    background-color: rgb(28, 39, 88);
+}
+
+.mobile {
+    display: none;
+}
+
+.brand-logo {
+    padding: 10px 0 5px 80px;
+}
+
+.btnIniciarSesion {
+    margin-right: 20px;
+}
+
+.bodyHistory {
+    background-color: #979797;
+    padding: 10px 20px;
+    min-height: 92vh;
+}
+
+h5 {
+    margin-top: 0px;
+    text-transform: uppercase;
+    color: midnightblue;
+    padding-top: 20px;
+}
+
+.buscadorFrm {
+    background-color: #ebebebeb;
+}
+
+.btnBuscador {
+    margin-top: 20px;
+    padding: 0 50px;
+    font-size: 20px;
+}
+
+.tableChat {
+    background-color: #ebebebeb;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #f57c00;
+    box-shadow: 0 1px 0 0 #f57c00;
+}
+
+.material-icons .prefix .active {
+    color: #f57c00 !important;
+}
+
+thead tr th {
+    border-bottom: 1px solid rgb(28, 39, 88);
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+    background-color: rgba(28, 39, 88, .7);
+    color: #FFFFFF;
+    border-radius: 0;
+}
+
+tfoot tr td {
+    border-bottom: 1px solid rgb(28, 39, 88);
+    border-collapse: separate;
+    border-spacing: 5px 5px;
+    background-color: rgba(28, 39, 88, .7);
+    color: #FFFFFF;
+    border-radius: 0;
+    text-align: center;
+}

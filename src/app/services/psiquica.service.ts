@@ -53,6 +53,10 @@ export class PsiquicaService {
     });
   }
 
+  getChats(_id, fecha): Observable<any> {
+    return this.http.post(`${baseURL}/psiquica/chats`, { _id: _id, fecha: fecha});
+  }
+
   // JOSIE SERVICE
   getJosieData(): Observable<any> {
     return this.http.get(`${baseURL}/psiquica/getJosieData`);

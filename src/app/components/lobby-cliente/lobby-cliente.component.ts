@@ -27,6 +27,7 @@ export class LobbyClienteComponent implements OnInit {
   audioStatus = false;
   rec: any;
   audioChunks: any = [];
+  btnAudio = false;
 
   constructor(
     private router: Router,
@@ -245,9 +246,11 @@ export class LobbyClienteComponent implements OnInit {
     navigator.mediaDevices.getUserMedia({
       audio: true
     })
-      .then(stream => {
-        this.handlerFunction(stream);
-      })
+    .then(stream => {
+      this.btnAudio = true;        
+      this.handlerFunction(stream);
+    })
+    .catch((err) => { })
   }
 
   handlerFunction(stream) {
