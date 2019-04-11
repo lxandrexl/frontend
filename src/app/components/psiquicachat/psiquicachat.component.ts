@@ -6,6 +6,7 @@ import { TokenService } from '../../services/token.service';
 import swal from 'sweetalert';
 import { Router } from '@angular/router';
 
+import { PsiquicaService } from '../../services/psiquica.service';
 @Component({
   selector: 'app-psiquicachat',
   templateUrl: './psiquicachat.component.html',
@@ -23,7 +24,8 @@ export class PsiquicachatComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private psiquicaservice: PsiquicaService
   ) { 
     this.socket = io(socketURL);
   }
@@ -71,6 +73,7 @@ export class PsiquicachatComponent implements OnInit {
     if(psiquica.estado == 1){
       const _id = psiquica.id_psiquica;
       this.userService.llamarPsiquica({_id: _id}).subscribe( response => {
+
         if(!response.message) return
         this.psiquica = response.psiquica;
         this.socket.emit('refreshPsiquicas', {message: 'Hey, updated...'});
@@ -90,6 +93,7 @@ export class PsiquicachatComponent implements OnInit {
       if(this.myToken == data.token) {
         this.closeLlamadaProceso();
         swal('La psiquica no pudo contestar la llamada...', 'Por favor intente nuevamente.', 'info');
+        // this.socket.on('refreshPsiquicasList2', response => { console.log("hola mundo peru") });
       }
     });
     this.socket.on('llamada_aceptada', data => {
@@ -104,4 +108,17 @@ export class PsiquicachatComponent implements OnInit {
   redirectShop() {
     this.router.navigate(['/compras']);
   }
+
+  cancelarLlamadaEnProgreso(){
+    this.closeLlamadaProceso();
+    // console.log(this.psiquica)
+    this.psiquicaservice.updateStatus(this.psiquica).subscribe(response => {
+      if (response.message) {
+        this.socket.emit('cancelarllamadaProgresoCliente', {token: this.myToken, psiquica: response.psiquica });
+        this.GetPsiquicas()
+      }
+    }, err => console.log(err));
+  }
+
+
 }

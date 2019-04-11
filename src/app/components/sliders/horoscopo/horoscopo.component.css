@@ -56,6 +56,10 @@
     animation-duration: 1.5s;
 }
 
+.item p {
+    font-size: 16px;
+}
+
 @-webkit-keyframes fade {
     from {
         opacity: .4

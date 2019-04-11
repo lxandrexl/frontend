@@ -37,6 +37,7 @@ export class SuscripcionComponent implements OnInit {
         this.tokenService.setCookieTmpTelefono(response.data.telefono);
         this.tokenService.setCookieTmpDireccion(response.data.direccion);
         this.tokenService.setCookieTmpPais(response.data.pais);
+        this.tokenService.setCookieCulqiEmail(response.data.email);
     }, err => console.log(err));
   }
 

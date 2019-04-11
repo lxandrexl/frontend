@@ -41,6 +41,11 @@ export class LobbyComponent implements OnInit {
   rec: any;
   btnAudio = false;
 
+  psiquicaOne: any;
+
+  navBarContentPsiquica: any;
+  navBarBodyPsiquica: any;
+
   constructor(
     private router: Router,
     private tokenService: TokenService,
@@ -49,6 +54,7 @@ export class LobbyComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.socket = io(socketURL);
+
   }
 
   ngOnInit() {
@@ -56,15 +62,19 @@ export class LobbyComponent implements OnInit {
     this.validarChatRoom();
     this.listenSocket();
     this.NabMobile();
+    // this.DropDown();
     this.init();
     this.psiquica = this.tokenService.GetPayloadPsiquica();
     this.psiquicaNombre = this.psiquica['usuario'];
     this.psiquicaCod = this.psiquica['id_psiquica'];
     this.onlyJosie();
+    this.listenSocketsLlamada();
+    
   }
 
   listenSocket() {
     this.socket.on('llamada_cliente', data => {
+      console.log(data);
       this.validarPsiquica(data.psiquica, data.usuario);
     });
 
@@ -120,6 +130,7 @@ export class LobbyComponent implements OnInit {
   getMessages() {
     this.psiquicaservice.getMessages(this.tokenService.GetTokenRoom())
       .subscribe(response => {
+        console.log(response);
         this.chatContent = response.data;
         if (this.psiquicaNombre != 'JOSIE') this.timeRoom = parseInt(response.timeRoom);
         this.initTimer();
@@ -212,6 +223,15 @@ export class LobbyComponent implements OnInit {
       validator: ['', Validators.required]
     });
   }
+  // DropDown() {
+  //   document.addEventListener('DOMContentLoaded', function () {
+  //     let elems = document.querySelectorAll('.dropdown-trigger');
+  //     M.Dropdown.init(elems, {
+  //       alignment: 'right',
+  //       coverTrigger: false
+  //     });
+  //   });
+  // }
 
   NabMobile() {
     document.addEventListener('DOMContentLoaded', function () {
@@ -226,7 +246,7 @@ export class LobbyComponent implements OnInit {
         this.tokenService.DeleteTokenPsiquica();
         this.socket.emit('refreshPsiquicas', { message: `${this.psiquicaNombre} salio.` })
         swal(response.message, '', 'info')
-          .then(() => window.location.href = "/")
+          .then(() => window.location.href = "./")
       }
     }, err => console.log(err));
   }
@@ -275,7 +295,7 @@ export class LobbyComponent implements OnInit {
     llamadaContent[0].style.display = 'block';
     this.iniciarAudio();
     this.intervalTimer = setTimeout(() => {
-      this.cancelarLlamada()
+      this.cancelarLlamada();
       this.terminarAudio();
     }, 10000);
   }
@@ -293,6 +313,7 @@ export class LobbyComponent implements OnInit {
       this.socket.emit('cancelar_llamada_josie', { token: this.clienteData });
     } else {
       this.psiquicaservice.updateStatus(this.psiquica).subscribe(response => {
+        console.log(response)
         if (response.message) {
           this.socket.emit('cancelar_llamada', { token: this.clienteToken, psiquica: response.psiquica });
           this.socket.emit('refreshPsiquicas', { message: `${this.psiquicaNombre} salio.` });
@@ -304,7 +325,7 @@ export class LobbyComponent implements OnInit {
 
   aceptarLlamada() {
     this.hideModal();
-
+    // console.log(this.clienteData);
     if (this.psiquicaNombre == 'JOSIE') {
       let body = {
         cliente: this.clienteData,
@@ -389,6 +410,7 @@ export class LobbyComponent implements OnInit {
     navigator.mediaDevices.getUserMedia({
       audio: true
     })
+      // .then(stream => {
       .then(stream => {
         this.btnAudio = true;        
         this.handlerFunction(stream);
@@ -444,8 +466,27 @@ export class LobbyComponent implements OnInit {
             Fecha de nacimiento: ${moment(this.clienteData.fecha_nacimiento).format('DD-MM-YYYY')}
             Genero: ${(this.clienteData.sexo === "M") ? 'Masculino' : 'Femenino'}
             Pais: ${this.clienteData.pais}`,
-      buttons: ["Cancelar", true],
     })
+  }
+
+  listenSocketsLlamada(){
+    this.socket.on('cancelarllamadaProgresoPsiquica', data => {
+      this.psiquicaOne = data.psiquica;
+      if(this.clienteToken == data.token){
+        console.log("Has realizado una conexion exitosa");
+        this.hideModal();
+      }
+    });
+  }
+
+  showMovileNavbarPsiquica() {
+    this.navBarContentPsiquica = document.getElementById("nav_movile_content_psiquica");
+    this.navBarContentPsiquica.style.display = 'block';
+  }
+
+  hideMovileNavbarPsiquica() {
+    this.navBarBodyPsiquica = document.getElementById("nav_movile_content_psiquica");
+    this.navBarContentPsiquica.style.display = 'none';
   }
 
 }

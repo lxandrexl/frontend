@@ -45,16 +45,19 @@ button {
 }
 
 .btnJosie {
-    background-color: #f57c00;
+    /* background-color: #f57c00; */
+    background-color: #6d29a5;
     color: #ffffff;
 }
 
 .btnJosie:hover {
-    background-color: #f57c00;
+    /* background-color: #f57c00; */
+    background-color: #966cb9;
 }
 
 .btnJosie:focus {
-    background-color: #f57c00;
+    /* background-color: #f57c00; */
+    background-color: #6d29a5;
 }
 
 .btnCenter {

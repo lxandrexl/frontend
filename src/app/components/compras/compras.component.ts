@@ -97,7 +97,6 @@ export class ComprasComponent implements OnInit {
       amount: this.precioCulqi
     });
     this.Culqi.open();
-
     this.tokenService.setCookieCulqiDesc(this.descCulqi);
     this.tokenService.setCookieCulqiPrice(this.precioCulqi);
     this.tokenService.setCookieCulqiProduct(this.titleCulqi);

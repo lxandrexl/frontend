@@ -52,6 +52,10 @@
     background-color: rgba(109, 41, 166, 1);
 }
 
+.t-c {
+    text-align: center;
+}
+
 @media only screen and (max-width: 730px) {
     .chatPsiContent {
         padding: 0 10px 0 10px;
@@ -166,6 +170,10 @@
     text-align: center;
     font-size: 25px;
     color: rgb(28, 39, 88);
+}
+
+.btn-chat {
+    background-color: #09b3b0;
 }
 
 @media only screen and (max-width: 992px) {

@@ -1,8 +1,8 @@
 <div class="navbar-fixed">
     <nav class=" bg-jossie">
         <div class="nav-wrapper">
-            <a class="brand-logo" (click)="redirect()"><img src="assets/img/logo.png" alt=""></a>
-            <a class="brand-logo mobile" [innerHTML]="timerInput1"></a>
+            <a class="brand-logo" (click)="Regresar()"><img src="assets/img/logo.png" alt=""></a>
+            <a class="brand-logo mobile"></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
                     <button (click)="Regresar()" class="waves-effect waves-light btn orange darken-2 btnIniciarSesion">Regresar</button>
@@ -39,7 +39,6 @@
                     <th>Minutos</th>
                     <th>Segundos</th>
                     <th>Fecha Inicio</th>
-                    <th>Fecha Fin</th>
                 </tr>
             </thead>
             <tbody *ngIf="chats.length > 0">
@@ -49,22 +48,20 @@
                     <td>{{GetMinutes(chat.tiempo)}}</td>
                     <td>{{GetSeconds(chat.tiempo)}}</td>
                     <td>{{FormatDate(chat.fecha_inicio)}}</td>
-                    <td>{{FormatDate(chat.fecha_fin)}}</td>
                 </tr>
             </tbody>
-            <tfoot>
+            <tfoot *ngIf="chats.length > 0">
                 <tr *ngIf="showTotal">
                     <td>#</td>
                     <td>Total</td>
                     <td>{{totalMinutos}}</td>
                     <td>{{totalSegundos}}</td>
                     <td>#</td>
-                    <td>#</td>
                 </tr>
             </tfoot>
             <tbody *ngIf="chats.length <= 0">
                 <tr>
-                    <td colspan="6">No tienes chats en esta fecha.</td>
+                    <td colspan="5">No tienes chats en esta fecha.</td>
                 </tr>
             </tbody>
         </table>

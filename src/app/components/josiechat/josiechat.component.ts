@@ -96,8 +96,8 @@ export class JosiechatComponent implements OnInit {
 
   ingresarChat() {
     if (this.josie.estado == '0') return;
-    //clearInterval(this.currentTime);
-    //this.showAdvise = false;
+    // clearInterval(this.currentTime);
+    // this.showAdvise = false;
     this.showLlamadaProceso();
     this.socket.emit('llamar_josie', {token: this.profile, cita: this.citaActual});
   }
@@ -287,6 +287,7 @@ export class JosiechatComponent implements OnInit {
         citasEncontradas.forEach(cita => {
           let findCita = this.timeDiffCita(moment().format('HH:mm'), (cita.hora.split(" - ")[0]));
           if (findCita <= 0 && findCita > -30) {
+          // if (findCita <= 0 && findCita > -3) {
             this.showAdvise = true;
             this.citaActual = cita;
           }
@@ -314,6 +315,7 @@ export class JosiechatComponent implements OnInit {
     cita = cita.split(":");
     now = (parseInt(now[0]) * 60) + parseInt(now[1]);
     cita = (parseInt(cita[0]) * 60) + parseInt(cita[1]);
+    // cita = 664;
     resultado = cita - now;
     return resultado;
   }

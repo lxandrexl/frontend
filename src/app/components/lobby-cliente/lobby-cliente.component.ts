@@ -43,7 +43,7 @@ export class LobbyClienteComponent implements OnInit {
     this.iniciarChat();
     this.listenMessage();
     this.updateTimeRoom();
-    this.askPermissions();
+    // this.askPermissions();
   }
 
   iniciarChat() {
@@ -165,7 +165,8 @@ export class LobbyClienteComponent implements OnInit {
           this.tokenService.DeleteSecondsRoom();
           this.tokenService.DeletePsiquicaRoom();
           //this.router.navigate(['/']);
-          window.location.href = '/';
+          // window.location.href = '/';
+          window.location.href = './';
         })
     })
 
@@ -218,6 +219,7 @@ export class LobbyClienteComponent implements OnInit {
       ).subscribe(response => {
         if (response.message) {
           this.router.navigate(['/compras']);
+          // this.router.navigate(['./']);
         }
       }, err => console.log(err));
     }
@@ -232,61 +234,61 @@ export class LobbyClienteComponent implements OnInit {
     }
   }
 
-  GrabarAudio() {
-    this.audioStatus = true;
-    this.rec.start();
-  }
+  // GrabarAudio() {
+  //   this.audioStatus = true;
+  //   this.rec.start();
+  // }
 
-  TerminarAudio() {
-    this.audioStatus = false;
-    this.rec.stop();
-  }
+  // TerminarAudio() {
+  //   this.audioStatus = false;
+  //   this.rec.stop();
+  // }
 
-  askPermissions() {
-    navigator.mediaDevices.getUserMedia({
-      audio: true
-    })
-    .then(stream => {
-      this.btnAudio = true;        
-      this.handlerFunction(stream);
-    })
-    .catch((err) => { })
-  }
+  // askPermissions() {
+  //   navigator.mediaDevices.getUserMedia({
+  //     audio: true
+  //   })
+  //   .then(stream => {
+  //     this.btnAudio = true;        
+  //     this.handlerFunction(stream);
+  //   })
+  //   .catch((err) => { })
+  // }
 
-  handlerFunction(stream) {
-    let parentThis = this;
-    this.rec = new MediaRecorder(stream);
-    this.rec.ondataavailable = e => {
-      this.audioChunks.push(e.data);
-      if (this.rec.state == "inactive") {
-        let blob = new Blob(this.audioChunks, {
-          type: 'audio/ogg'
-        })
-        this.blobToBase64(blob, function (base64) {
-          parentThis.SendAudio(base64);
-        });
-      }
-    }
-  }
+  // handlerFunction(stream) {
+  //   let parentThis = this;
+  //   this.rec = new MediaRecorder(stream);
+  //   this.rec.ondataavailable = e => {
+  //     this.audioChunks.push(e.data);
+  //     if (this.rec.state == "inactive") {
+  //       let blob = new Blob(this.audioChunks, {
+  //         type: 'audio/ogg'
+  //       })
+  //       this.blobToBase64(blob, function (base64) {
+  //         parentThis.SendAudio(base64);
+  //       });
+  //     }
+  //   }
+  // }
 
-  SendAudio(base64) {
-    const psiquica = this.tokenService.GetPsiquicaRoom();
-    const usuario = this.tokenService.GetPayload().id_usuario;
-    const room = this.tokenService.GetTokenRoom();
-    this.userService.sendAudio(room, usuario, psiquica, base64).subscribe((response) => {
-      this.audioChunks = [];
-      this.socket.emit("mensaje", { room: this.tokenService.GetTokenRoom() });
-    }, err => console.log(err))
-  }
+  // SendAudio(base64) {
+  //   const psiquica = this.tokenService.GetPsiquicaRoom();
+  //   const usuario = this.tokenService.GetPayload().id_usuario;
+  //   const room = this.tokenService.GetTokenRoom();
+  //   this.userService.sendAudio(room, usuario, psiquica, base64).subscribe((response) => {
+  //     this.audioChunks = [];
+  //     this.socket.emit("mensaje", { room: this.tokenService.GetTokenRoom() });
+  //   }, err => console.log(err))
+  // }
 
-  blobToBase64 = (blob, cb) => {
-    let reader = new FileReader();
-    reader.onload = function () {
-      let dataUrl = reader.result;
-      let base64 = (dataUrl as string).split(',')[1];
-      cb(base64);
-    };
-    reader.readAsDataURL(blob);
-  };
+  // blobToBase64 = (blob, cb) => {
+  //   let reader = new FileReader();
+  //   reader.onload = function () {
+  //     let dataUrl = reader.result;
+  //     let base64 = (dataUrl as string).split(',')[1];
+  //     cb(base64);
+  //   };
+  //   reader.readAsDataURL(blob);
+  // };
 
 }

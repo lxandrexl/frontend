@@ -7,9 +7,9 @@
                 <img src="../../../assets/img/{{psiquica.foto}}" class="circle-psi">
                 <h5 class="namePsi">{{psiquica.usuario}}</h5>
                 <p class="subtitlePsi">Experta en Amor</p>
-                <img src="../../../assets/img/stars/4.png" class="stars-psi">
+                <img src="../../../assets/img/stars/evaluacion/{{psiquica.evalua}}.png" class="stars-psi">
                 <button *ngIf="psiquica.estado != 1" class="btn btnOcupado">Ocupado</button>
-                <button (click)="openDescription(psiquica)" *ngIf=" psiquica.estado==1 " [attr.data-psiquica]="psiquica.id_psiquica " class="btn btnJosie ">
+                <button (click)="openDescription(psiquica)" *ngIf=" psiquica.estado==1 " [attr.data-psiquica]="psiquica.id_psiquica" class="btn btnJosie btn-chat">
                     Chatear</button>
             </div>
         </div>
@@ -69,6 +69,9 @@
             </div>
             <div class="col l12 s12 ">
                 <p class="llamadaProcessMessage">Llamando...</p>
+            </div>
+            <div class="col l12 s12 t-c ">
+                <button (click)="cancelarLlamadaEnProgreso(psiquica)" class="btn btnCancelar">Cancelar Llamada</button>
             </div>
         </div>
     </div>

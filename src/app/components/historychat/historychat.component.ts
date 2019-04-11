@@ -41,10 +41,6 @@ export class HistorychatComponent implements OnInit {
     this.profile = this.tokenService.GetPayloadPsiquica();
   }
 
-  redirect() {
-    this.router.navigate(['lobby']);
-  }
-
   Regresar() {
     this.router.navigate(['lobby']);
   }
@@ -61,7 +57,7 @@ export class HistorychatComponent implements OnInit {
   }
 
   FormatDate(time) {
-    return moment(time).format('DD-MM-YYYY');
+    return moment(time).format('DD-MM-YYYY HH:mm:ss');
   }
 
   GetMinutes(time) {

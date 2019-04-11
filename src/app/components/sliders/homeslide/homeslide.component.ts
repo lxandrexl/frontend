@@ -52,4 +52,7 @@ export class HomeslideComponent implements OnInit {
       this.router.navigate(['/chat-josie']);
     //window.location.href="chat-josie";
   }
+  imajossie(){
+    this.router.navigate(['/chat-josie']);
+  }
 }

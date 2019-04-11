@@ -4,7 +4,8 @@
 }
 
 .bg-jossie {
-    background-color: rgb(28, 39, 88);
+    /* background-color: rgb(28, 39, 88); */
+    background-color: #09b3b0;
 }
 
 .brand-logo {
@@ -26,7 +27,8 @@
     text-align: center;
     font-weight: 600;
     font-size: 20px;
-    background-color: rgb(28, 39, 88);
+    /* background-color: rgb(28, 39, 88); */
+    background-color: #09b3b0;
     cursor: default;
     color: #FFFFFF;
     padding-top: 10px;
@@ -91,6 +93,7 @@ ul ul li:last-child {
 
 .iconMovile i {
     padding: 0 10px;
+    cursor: pointer;
 }
 
 .nav-movile-content {
@@ -128,9 +131,11 @@ ul ul li:last-child {
 }
 
 .main-movile-title {
+    text-align: center;
     height: 12%;
     width: 100%;
-    background-color: rgb(28, 39, 88);
+    /* background-color: rgb(28, 39, 88); */
+    background-color: #09b3b0;
     padding: 15px 80px;
 }
 
@@ -159,7 +164,8 @@ ul ul li:last-child {
 .main-movile-content ul ul {
     display: none;
     position: absolute;
-    background: rgb(28, 39, 88);
+    /* background: rgb(28, 39, 88); */
+    background-color: #09b3b0;
     color: #FFFFFF;
     padding: 5px 0px 5px 5px;
     margin: 0;

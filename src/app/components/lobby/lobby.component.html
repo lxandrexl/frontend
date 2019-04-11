@@ -1,6 +1,7 @@
 <div class="cloud-details">
     <i *ngIf="!chatStatus" (click)="showHistory()" class="material-icons">assignment</i>
     <i *ngIf="chatStatus" (click)="showUser()" class="material-icons">assignment_ind</i>
+    <!-- <i (click)="showUser()" class="material-icons">assignment_ind</i> -->
 </div>
 
 <div class="navbar-fixed">
@@ -19,7 +20,8 @@
                     <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btnIniciarSesion">Terminar Chat</button>
                 </li>
             </ul>
-            <a href="#" data-target="slide-out" class="sidenav-trigger "><i class="material-icons">menu</i></a>
+            <!-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+            <div (click)="showMovileNavbarPsiquica()" class="iconMovile"><i class="material-icons">menu</i></div>
         </div>
     </nav>
 </div>
@@ -44,6 +46,7 @@
                         <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
                         <input type="hidden" [(ngModel)]="valInput" formControlName="validator">
                         <a *ngIf="!audioStatus && btnAudio" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a>
+                        <!-- <a (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a> -->
                         <a *ngIf="audioStatus" (click)="TerminarAudio()" class="btnSend btnJosie audioBtnStop"><i class="material-icons">stop</i></a>
                         <button class="btnSendMsg btnJosie" [disabled]="!chatForm.valid">Enviar</button>
                     </div>
@@ -68,13 +71,29 @@
 </div>
 
 <!--MOBILE NAVIGATION-->
-<ul id="slide-out" class="sidenav">
+
+<!-- <ul id="slide-out" class="sidenav">
     <li class="tituloMenu"><img src="assets/img/logo.png" alt=""></li>
     <li *ngIf="!chatStatus">
         <button (click)="CerrarSesion()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Cerrar Sesión</button>
     </li>
     <li *ngIf="chatStatus">
-        <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btn-large mbtnIniciarSesion">
-        Terminar Chat</button>
+        <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btn-large mbtnIniciarSesion">Terminar Chat</button>
     </li>
-</ul>
+</ul> -->
+
+<!-- MOBILE NAVEGATION PRUEBA -->
+<div class="nav-movile-content" id="nav_movile_content_psiquica">
+    <div class="main-movile-content">
+        <div class="main-movile-title">
+            <img src="assets/img/logo.png" alt="">
+        </div>
+        <div *ngIf="!chatStatus">
+            <button (click)="CerrarSesion()" class="waves-effect waves-light btn orange darken-2 btn-large mbtnIniciarSesion">Cerrar Sesión</button>
+        </div>
+        <div *ngIf="chatStatus">
+            <button (click)="TerminarChat()" class="waves-effect waves-light btn red darken-2 btn-large mbtnIniciarSesion">Terminar Chat</button>
+        </div>
+    </div>
+    <div class="main-movile-exit" (click)="hideMovileNavbarPsiquica()"></div>
+</div>

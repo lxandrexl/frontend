@@ -18,8 +18,8 @@
                 <div class="row">
                     <div class="input-field col s12 sendMsg">
                         <textarea (keyup)="enterMessage($event)" id="textArea" class="textBody validate" placeholder="Ingrese aquí su mensaje..." formControlName="message" autocomplete="off"></textarea>
-                        <a *ngIf="!audioStatus && btnAudio" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a>
-                        <a *ngIf="audioStatus" (click)="TerminarAudio()" class="btnSend btnJosie audioBtnStop"><i class="material-icons">stop</i></a>
+                        <!-- <a *ngIf="!audioStatus && btnAudio" (click)="GrabarAudio()" class="btnSend btnJosie audioBtn"><i class="material-icons">keyboard_voice</i></a> -->
+                        <!-- <a *ngIf="audioStatus" (click)="TerminarAudio()" class="btnSend btnJosie audioBtnStop"><i class="material-icons">stop</i></a> -->
                         <button class="btnSendMsg btnJosie" [disabled]="!chatClienteForm.valid">Enviar</button>
                     </div>
                 </div>
